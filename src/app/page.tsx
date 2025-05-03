@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import Calendar from "@/components/calendar/Calendar";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <main className="flex flex-col items-center sm:items-start">
           <h1 className="text-4xl">Fairway</h1>
           <p className="text-lg">Golf activity tracker</p>
+      <Calendar />
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         William Tuominiemi 2025
