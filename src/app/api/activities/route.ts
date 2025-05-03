@@ -2,6 +2,45 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
+
+export const GET = async (): Promise<NextResponse> => {
+  try {
+    const session = await auth();
+    if (!session || !session.user?.id) {
+      return new NextResponse('Unauthorized', { status: 401 });
+    }
+
+    const userId = session.user.id;
+
+    const activities = await prisma.activity.findMany({
+      where: {
+        userId: userId,
+      },
+      orderBy: {
+        date: 'desc',
+      },
+    });
+
+    return new NextResponse(JSON.stringify(activities), { 
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  } catch (error) {
+    console.error('Error in GET handler:', error);
+    return new NextResponse(JSON.stringify({
+      error: 'Failed to fetch activities',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    }), { 
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+}
+
 export const POST = async (req: NextRequest): Promise<NextResponse> => {
   try {
     const session = await auth();

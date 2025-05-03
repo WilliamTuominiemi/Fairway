@@ -3,7 +3,6 @@
 import { useSession } from "next-auth/react"
 
 import Navbar from "@/components/Navbar";
-import AddActivity from "@/components/calendar/AddActivity";
 import Calendar from "@/components/calendar/Calendar";
 
 export default function Home() {
@@ -16,10 +15,7 @@ export default function Home() {
           <h1 className="text-4xl">Fairway</h1>
           <p className="text-lg">Golf activity tracker</p>
         {session ? (
-          <>
-            <AddActivity />
-            <Calendar />
-          </>
+          <Calendar />
         ) : (
           <>
               Sign in to see your activities...
