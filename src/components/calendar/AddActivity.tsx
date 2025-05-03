@@ -66,7 +66,7 @@ export default function AddActivity() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-5 m-5 bg-white rounded-lg text-black">
+    <div className="flex flex-col gap-4 p-5 m-5 bg-emerald-50 border-1 border-slate-500 rounded-lg text-black">
       <h1>Add activity</h1>
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <label htmlFor="date" className="text-sm font-medium text-gray-700">
@@ -78,7 +78,7 @@ export default function AddActivity() {
           required
           value={formData.date}
           onChange={handleChange}
-          className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border bg-white border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
           placeholder="Enter date"
           max={new Date().toISOString().split("T")[0]}
         />

@@ -9,7 +9,7 @@ export default function AuthStatus() {
     const { data: session } = useSession()
 
     return (
-        <header className="flex flex-row h-20 items-center justify-between w-full p-4 bg-green-800 text-white">
+        <header className="flex flex-row gap-5 h-20 items-center justify-between w-full p-4 bg-green-800 text-white">
             <h1 className="text-2xl font-bold">
                 Fairway
             </h1>

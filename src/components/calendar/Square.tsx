@@ -26,5 +26,5 @@ export default function Square({ activities = [] }: SquareProps) {
 
   const backgroundColor = getBackgroundColor()
 
-  return <div className={`h-10 w-10 rounded-sm ${backgroundColor}`}></div>
+  return <div className={`h-7 w-7 md:h-10 md:w-10 rounded-sm border-1 border-slate-500 ${backgroundColor}`}></div>
 }

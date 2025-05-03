@@ -44,19 +44,19 @@ export default function Calendar() {
   if (error) return <div className="flex gap-4 m-5 text-red-500">Error: {error.message}</div>
   
   return (
-    <div className='flex flex-row gap-4 m-5 align-middle text-center'>
+    <div className='flex flex-col md:flex-row gap-4 m-5 align-middle text-center'>
       <AddActivity />
-      <div className="flex flex-col gap-4 m-5">
+      <div className="flex flex-col gap-2 md:gap-4 m-5">
         {Array.from({ length: Math.ceil(days.length / 7) }, (_, weekIndex) => (
-          <div key={weekIndex} className="flex gap-4">
+          <div key={weekIndex} className="flex gap-2 md:gap-4">
         {days.slice(weekIndex * 7, weekIndex * 7 + 7).map((day, dayIndex) => (
           <Square 
             key={dayIndex} 
             activities={getActivitiesForDay(day)}
           />
         ))}
-          </div>
-        ))}
+        </div>
+      ))}
       </div>
     </div>
    

@@ -3,28 +3,25 @@
 import { useSession } from "next-auth/react"
 
 import Navbar from "@/components/Navbar";
+import SignInButton from "@/components/auth/SignInButton";
 import Calendar from "@/components/calendar/Calendar";
 
 export default function Home() {
   const { data: session } = useSession()
 
   return (
-    <div className="flex flex-col items-center justify-items-center min-h-screen pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
+    <div className="flex flex-col items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
       <Navbar />
       <main className="flex flex-col items-center sm:items-start">
-          <h1 className="text-4xl">Fairway</h1>
-          <p className="text-lg">Golf activity tracker</p>
         {session ? (
           <Calendar />
         ) : (
           <>
-              Sign in to see your activities...
+          <h1 className="text-4xl p-5">Sign in to see your activities...</h1>
+          <SignInButton />
           </>
       )}
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        William Tuominiemi 2025
-      </footer>
     </div>
   );
 }
