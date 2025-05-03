@@ -80,6 +80,7 @@ export default function AddActivity() {
           onChange={handleChange}
           className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter date"
+          max={new Date().toISOString().split("T")[0]}
         />
         <button
           type="submit"

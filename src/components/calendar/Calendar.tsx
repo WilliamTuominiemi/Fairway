@@ -21,7 +21,7 @@ export default function Calendar() {
   
   const getDays = () => {
     const days = []
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 31; i++) {
       const date = new Date()
       date.setDate(date.getDate() - i)
       days.push(date)
@@ -44,17 +44,21 @@ export default function Calendar() {
   if (error) return <div className="flex gap-4 m-5 text-red-500">Error: {error.message}</div>
   
   return (
-    <>
+    <div className='flex flex-row gap-4 m-5 align-middle text-center'>
       <AddActivity />
-      <div className="flex gap-4 m-5">
-        {days.map((day, index) => (
+      <div className="flex flex-col gap-4 m-5">
+        {Array.from({ length: Math.ceil(days.length / 7) }, (_, weekIndex) => (
+          <div key={weekIndex} className="flex gap-4">
+        {days.slice(weekIndex * 7, weekIndex * 7 + 7).map((day, dayIndex) => (
           <Square 
-            key={index} 
+            key={dayIndex} 
             activities={getActivitiesForDay(day)}
           />
         ))}
+          </div>
+        ))}
       </div>
-    </>
+    </div>
    
   )
 }
