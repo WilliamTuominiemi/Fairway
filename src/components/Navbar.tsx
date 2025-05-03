@@ -30,7 +30,6 @@ export default function AuthStatus() {
                     </>
                 ) : (
                     <>
-                        <p>Not signed in</p>
                         <SignInButton />
                     </>
                 )}
