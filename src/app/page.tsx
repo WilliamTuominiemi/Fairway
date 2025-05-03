@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { useSession } from "next-auth/react"
+import { useSession } from 'next-auth/react';
 
-import Navbar from "@/components/Navbar";
-import SignInButton from "@/components/auth/SignInButton";
-import Calendar from "@/components/calendar/Calendar";
+import Navbar from '@/components/Navbar';
+import SignInButton from '@/components/auth/SignInButton';
+import Calendar from '@/components/calendar/Calendar';
 
 export default function Home() {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
   return (
     <div className="flex flex-col items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
@@ -17,10 +17,10 @@ export default function Home() {
           <Calendar />
         ) : (
           <>
-          <h1 className="text-4xl p-5">Sign in to see your activities...</h1>
-          <SignInButton />
+            <h1 className="text-4xl p-5">Sign in to see your activities...</h1>
+            <SignInButton />
           </>
-      )}
+        )}
       </main>
     </div>
   );

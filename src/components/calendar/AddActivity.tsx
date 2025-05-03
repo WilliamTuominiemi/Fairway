@@ -1,69 +1,69 @@
-"use client"
-import { useState } from 'react'
-import { useSession } from 'next-auth/react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+'use client';
+import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function AddActivity() {
-  const { data: session } = useSession()
-  const queryClient = useQueryClient()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { data: session } = useSession();
+  const queryClient = useQueryClient();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    date: "",
-  })
+    date: '',
+  });
 
   const activityMutation = useMutation({
     mutationFn: async () => {
       const response = await fetch('/api/activities', {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-      })
-      
+      });
+
       if (!response.ok) {
-        const errorData = await response.json().catch(() => null)
-        console.error('Server response:', errorData)
-        throw new Error(`Failed to add activity: ${response.status}`)
+        const errorData = await response.json().catch(() => null);
+        console.error('Server response:', errorData);
+        throw new Error(`Failed to add activity: ${response.status}`);
       }
-      
-      return response.json()
+
+      return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['activities'] })
-      setFormData({ date: '' })
-      setIsSubmitting(false)
+      queryClient.invalidateQueries({ queryKey: ['activities'] });
+      setFormData({ date: '' });
+      setIsSubmitting(false);
     },
     onError: (error) => {
-      console.error('Error adding activity:', error)
-      setIsSubmitting(false)
-    }
-  })
+      console.error('Error adding activity:', error);
+      setIsSubmitting(false);
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault() // This is crucial to prevent the default form submission
-    
+    e.preventDefault(); // This is crucial to prevent the default form submission
+
     if (!session) {
-      console.error('Please sign in to add activities')
-      return
+      console.error('Please sign in to add activities');
+      return;
     }
-    
+
     if (!formData.date) {
-      console.error('Date is required')
-      return
+      console.error('Date is required');
+      return;
     }
-    
-    setIsSubmitting(true)
-    activityMutation.mutate()
-  }
+
+    setIsSubmitting(true);
+    activityMutation.mutate();
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target
+    const { id, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [id]: value,
-    }))
-  }
+    }));
+  };
 
   return (
     <div className="flex flex-col gap-4 p-5 m-5 bg-emerald-50 border-1 border-slate-500 rounded-lg text-black">
@@ -80,7 +80,7 @@ export default function AddActivity() {
           onChange={handleChange}
           className="border bg-white border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
           placeholder="Enter date"
-          max={new Date().toISOString().split("T")[0]}
+          max={new Date().toISOString().split('T')[0]}
         />
         <button
           type="submit"
@@ -90,18 +90,14 @@ export default function AddActivity() {
           {isSubmitting ? 'Adding...' : 'Add activity'}
         </button>
       </form>
-      
+
       {activityMutation.isError && (
-        <div className="text-red-500 mt-2">
-          Failed
-        </div>
+        <div className="text-red-500 mt-2">Failed</div>
       )}
-      
+
       {activityMutation.isSuccess && (
-        <div className="text-green-900 text-sm">
-          Success
-        </div>
+        <div className="text-green-900 text-sm">Success</div>
       )}
     </div>
-  )
+  );
 }
