@@ -2,18 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
-export const GET = async (): Promise<NextResponse> => {
+export const GET = async (req: NextRequest): Promise<NextResponse> => {
   try {
     const session = await auth();
-    if (!session || !session.user?.id) {
+
+    const { searchParams } = new URL(req.url);
+    const userIdParam = searchParams.get('userId');
+
+    if (!userIdParam && (!session || !session.user?.id)) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const userId = session.user.id;
+    const userId = userIdParam || (session?.user?.id ?? '');
 
     const activities = await prisma.activity.findMany({
       where: {
-        userId: userId,
+        userId,
       },
       orderBy: {
         date: 'desc',

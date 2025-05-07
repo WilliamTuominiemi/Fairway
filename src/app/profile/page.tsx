@@ -14,7 +14,9 @@ export default function Profile() {
       <Navbar />
       <main className="flex flex-col items-center sm:items-start">
         {session ? (
-          <Calendar />
+          <>
+            <Calendar />
+          </>
         ) : (
           <>
             <h1 className="text-4xl p-5">Sign in to see your activities...</h1>

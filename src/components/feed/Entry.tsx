@@ -1,0 +1,22 @@
+import Calendar from '@/components/calendar/Calendar';
+import { User } from '@/types/index';
+import Image from 'next/image';
+
+export default function Entry({ user }: { user: User }) {
+  return (
+    <div className="p-5">
+      <div className="pl-5 flex flex-row items-center gap-3">
+        <Image
+          src={user.image || ''}
+          alt="User Image"
+          width={30}
+          height={30}
+          className="rounded-full"
+        />
+        <h1 className="text-xl">{user.name}</h1>
+      </div>
+
+      <Calendar userId={user.id} />
+    </div>
+  );
+}

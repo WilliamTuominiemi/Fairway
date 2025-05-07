@@ -12,9 +12,10 @@ interface Activity {
 
 interface SquareProps {
   activities?: Activity[];
+  isFeed?: boolean;
 }
 
-export default function Square({ activities = [] }: SquareProps) {
+export default function Square({ activities = [], isFeed }: SquareProps) {
   const getBackgroundColor = () => {
     const activityCount = activities.length;
     if (activityCount === 0) return 'bg-red-50';
@@ -27,7 +28,9 @@ export default function Square({ activities = [] }: SquareProps) {
 
   return (
     <div
-      className={`h-7 w-7 md:h-10 md:w-10 rounded-sm border-1 border-slate-500 ${backgroundColor}`}
+      className={`${
+        isFeed ? 'h-5 w-5 md:h-7 md:w-7' : 'h-7 w-7 md:h-10 md:w-10'
+      } rounded-sm border border-slate-500 ${backgroundColor}`}
     ></div>
   );
 }
