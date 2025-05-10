@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
 import SignInButton from '@/components/auth/SignInButton';
 import Calendar from '@/components/calendar/Calendar';
+import Stats from '@/components/profile/Stats';
 
 export default function Profile() {
   const { data: session } = useSession();
@@ -15,6 +16,7 @@ export default function Profile() {
       <main className="flex flex-col items-center sm:items-start">
         {session ? (
           <>
+            <Stats />
             <Calendar />
           </>
         ) : (
