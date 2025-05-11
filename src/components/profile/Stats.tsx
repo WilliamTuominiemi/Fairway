@@ -85,7 +85,7 @@ export default function Stats({ userId }: { userId?: string | null }) {
   }, [data]);
 
   return (
-    <div className="flex flex-col md:w-80 m-10 p-5 gap-5 mb-0 bg-red-50 border-1 border-slate-500 rounded-lg text-black">
+    <div className="flex flex-col md:w-100 p-5 gap-5 mb-0 bg-red-50 border-1 border-slate-500 rounded-lg text-black">
       {isPending && <div className="flex gap-4 m-5">Loading stats...</div>}
       {error && (
         <div className="flex gap-4 m-5 text-red-500">

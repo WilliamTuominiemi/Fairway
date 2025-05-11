@@ -63,7 +63,7 @@ export default function Calendar({ userId }: { userId?: string | null }) {
         {Array.from({ length: Math.ceil(days.length / 7) }, (_, weekIndex) => (
           <div
             key={weekIndex}
-            className={isFeed ? 'flex gap-1' : 'flex gap-2 md:gap-4'}
+            className={isFeed ? 'flex gap-1' : 'flex md:w-100 gap-2 md:gap-4'}
           >
             {days
               .slice(weekIndex * 7, weekIndex * 7 + 7)
