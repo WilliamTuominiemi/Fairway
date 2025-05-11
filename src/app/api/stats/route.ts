@@ -13,21 +13,31 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
     }
 
     const userId = userIdParam || (session?.user?.id ?? '');
-    const stats = await prisma.stats.findUnique({
+
+    let stats = await prisma.stats.findUnique({
       where: {
         userId,
       },
     });
 
     if (!stats) {
-      return new NextResponse('Stats not found', { status: 404 });
+      stats = await prisma.stats.create({
+        data: {
+          userId,
+          handicap: 0,
+          averageScore: 0,
+          drivingAccuracy: 0,
+          greensInRegulation: 0,
+          puttsPerRound: 0,
+        },
+      });
     }
 
     return new NextResponse(JSON.stringify(stats), { status: 200 });
   } catch (error) {
     return new NextResponse(
       JSON.stringify({
-        error: 'Failed to fetch stats',
+        error: 'Failed to fetch or create stats',
         message: error instanceof Error ? error.message : 'Unknown error',
       }),
       {
