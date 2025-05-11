@@ -19,14 +19,12 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
       },
     });
 
-    return new NextResponse(JSON.stringify(stats), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    if (!stats) {
+      return new NextResponse('Stats not found', { status: 404 });
+    }
+
+    return new NextResponse(JSON.stringify(stats), { status: 200 });
   } catch (error) {
-    console.error('Error in GET handler:', error);
     return new NextResponse(
       JSON.stringify({
         error: 'Failed to fetch stats',
@@ -34,9 +32,6 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
       }),
       {
         status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-        },
       },
     );
   }
@@ -78,12 +73,7 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
         message: 'Stats updated successfully',
         stats: updatedStats,
       }),
-      {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
+      { status: 200 },
     );
   } catch (error) {
     console.error('Error in POST handler:', error);
@@ -92,12 +82,7 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
         error: 'Failed to update stats',
         message: error instanceof Error ? error.message : 'Unknown error',
       }),
-      {
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
+      { status: 500 },
     );
   }
 };

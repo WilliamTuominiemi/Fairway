@@ -24,25 +24,14 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
       },
     });
 
-    return new NextResponse(JSON.stringify(activities), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    return new NextResponse(JSON.stringify(activities), { status: 200 });
   } catch (error) {
-    console.error('Error in GET handler:', error);
     return new NextResponse(
       JSON.stringify({
         error: 'Failed to fetch activities',
         message: error instanceof Error ? error.message : 'Unknown error',
       }),
-      {
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
+      { status: 500 },
     );
   }
 };
@@ -72,26 +61,15 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
         message: 'Activity created successfully',
         activity: newActivity,
       }),
-      {
-        status: 201,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
+      { status: 201 },
     );
   } catch (error) {
-    console.error('Error in POST handler:', error);
     return new NextResponse(
       JSON.stringify({
         error: 'Failed to create activity',
         message: error instanceof Error ? error.message : 'Unknown error',
       }),
-      {
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
+      { status: 500 },
     );
   }
 };
