@@ -6,8 +6,11 @@ import Link from 'next/link';
 import SignInButton from './auth/SignInButton';
 import SignOutButton from './auth/SignOutButton';
 
+import { NavbarSkeleton } from '@/components/skeletons/NavbarSkeleton';
+
 export default function AuthStatus() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const isLoading = status === 'loading';
 
   return (
     <header className="flex flex-row gap-5 h-20 items-center justify-between w-full p-4 bg-green-800 text-white">
@@ -15,7 +18,9 @@ export default function AuthStatus() {
         Fairway
       </Link>
       <div className="flex flex-row items-center justify-end w-full">
-        {session ? (
+        {isLoading ? (
+          <NavbarSkeleton />
+        ) : session ? (
           <>
             <SignOutButton />
             <Link href="/profile" className="flex flex-row items-center">

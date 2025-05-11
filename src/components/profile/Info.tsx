@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 
+import { UserInfoSkeleton } from '@/components/skeletons/UserInfoSkeleton';
+
 export default function Info({ userId }: { userId?: string | null }) {
   const queryKey = ['info', 'self'];
   const { isPending, error, data } = useQuery({
@@ -17,9 +19,10 @@ export default function Info({ userId }: { userId?: string | null }) {
     return daysDiff;
   };
 
+  if (isPending) return <UserInfoSkeleton />;
+
   return (
     <div className="flex flex-col md:w-70 p-5 mb-0 bg-emerald-50 border-1 border-slate-500 rounded-lg text-black items-center justify-center">
-      {isPending && <h1>Loading...</h1>}
       {error && <h1>Error: {error.message}</h1>}
       {data && (
         <div className="flex flex-col items-center gap-5">

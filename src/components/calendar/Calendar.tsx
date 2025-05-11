@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import Square from './Square';
 import AddActivity from './AddActivity';
 
+import { CalendarSkeleton } from '@/components/skeletons/CalendarSkeleton';
+
 interface Activity {
   id: string;
   userId: string;
@@ -43,8 +45,7 @@ export default function Calendar({ userId }: { userId?: string | null }) {
     });
   };
 
-  if (isPending)
-    return <div className="flex gap-4 m-5">Loading activities...</div>;
+  if (isPending) return <CalendarSkeleton isFeed={isFeed} />;
   if (error)
     return (
       <div className="flex gap-4 m-5 text-red-500">Error: {error.message}</div>
