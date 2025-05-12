@@ -24,7 +24,6 @@ export default function Profile() {
     <div className="flex flex-col items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
       <Navbar />
       <main className="flex flex-col items-center sm:items-start">
-        {params?.id}
         {isLoading ? (
           <div>
             <div className="flex flex-col m-10 gap-12 sm:flex-row">
@@ -36,10 +35,10 @@ export default function Profile() {
         ) : session ? (
           <div>
             <div className="flex flex-col m-10 gap-12 sm:flex-row">
-              <Stats />
-              <Info />
+              <Stats userId={params?.id} />
+              <Info userId={params?.id} />
             </div>
-            <Calendar />
+            <Calendar userId={params?.id} />
           </div>
         ) : (
           <>

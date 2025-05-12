@@ -1,11 +1,15 @@
 import Calendar from '@/components/calendar/Calendar';
 import { User } from '@/types/index';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Entry({ user }: { user: User }) {
   return (
     <div className="p-5">
-      <div className="pl-5 flex flex-row items-center gap-3">
+      <Link
+        href={`/profile/${user.id}`}
+        className="pl-5 flex flex-row items-center gap-3"
+      >
         <Image
           src={user.image || ''}
           alt="User Image"
@@ -14,9 +18,9 @@ export default function Entry({ user }: { user: User }) {
           className="rounded-full"
         />
         <h1 className="text-xl">{user.name}</h1>
-      </div>
+      </Link>
 
-      <Calendar userId={user.id} />
+      <Calendar userId={user.id} isFeed={true} />
     </div>
   );
 }

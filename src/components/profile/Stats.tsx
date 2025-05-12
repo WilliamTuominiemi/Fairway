@@ -28,6 +28,8 @@ interface StatsFormData {
 export default function Stats({ userId }: { userId?: string | null }) {
   const { data: session } = useSession();
 
+  const myProfile = !userId;
+
   const queryKey = ['stats', 'self'];
   const { isPending, error, data } = useQuery({
     queryKey,
@@ -199,7 +201,7 @@ export default function Stats({ userId }: { userId?: string | null }) {
             )}
           </div>
 
-          {session && (
+          {session && myProfile && (
             <button
               type="button"
               className="w-25 self-end bg-green-700 hover:bg-green-900 active:scale-95 p-2 rounded-md text-emerald-50 transition-transform duration-75"

@@ -14,9 +14,16 @@ interface Activity {
   updatedAt: string;
 }
 
-export default function Calendar({ userId }: { userId?: string | null }) {
+export default function Calendar({
+  userId,
+  isFeed = false,
+}: {
+  userId?: string | null;
+  isFeed?: boolean;
+}) {
+  const myProfile = !userId;
+
   const queryKey = ['activities', userId ?? 'self'];
-  const isFeed = !!userId;
 
   const { isPending, error, data } = useQuery({
     queryKey,
@@ -57,7 +64,7 @@ export default function Calendar({ userId }: { userId?: string | null }) {
         isFeed ? 'gap-2 m-2' : 'gap-4 m-5'
       } align-middle text-center`}
     >
-      {!isFeed && <AddActivity />}
+      {!isFeed && myProfile && <AddActivity />}
       <div
         className={`flex flex-col ${isFeed ? 'gap-1 m-2' : 'gap-2 md:gap-4 m-5'}`}
       >
