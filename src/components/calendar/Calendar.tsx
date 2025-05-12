@@ -52,7 +52,8 @@ export default function Calendar({
     });
   };
 
-  if (isPending) return <CalendarSkeleton isFeed={isFeed} />;
+  if (isPending)
+    return <CalendarSkeleton isFeed={isFeed} myProfile={myProfile} />;
   if (error)
     return (
       <div className="flex gap-4 m-5 text-red-500">Error: {error.message}</div>

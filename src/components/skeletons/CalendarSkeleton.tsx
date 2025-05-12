@@ -1,6 +1,12 @@
 import BaseSkeleton from './BaseSkeleton';
 
-export const CalendarSkeleton = ({ isFeed = false }: { isFeed?: boolean }) => {
+export const CalendarSkeleton = ({
+  isFeed = false,
+  myProfile = false,
+}: {
+  isFeed?: boolean;
+  myProfile?: boolean;
+}) => {
   // Use the same number of days (31) as in the Calendar component
   const days = 31;
   const weeksToShow = Math.ceil(days / 7);
@@ -11,10 +17,10 @@ export const CalendarSkeleton = ({ isFeed = false }: { isFeed?: boolean }) => {
         isFeed ? 'gap-2 m-2' : 'gap-4 m-5'
       } align-middle text-center`}
     >
-      {!isFeed && (
+      {!isFeed && myProfile && (
         <div className="flex flex-col md:w-75 gap-4 p-5 m-5 bg-emerald-50 border-1 border-slate-500 rounded-lg items-center">
           <BaseSkeleton className="w-20 h-6" />
-          <BaseSkeleton className="w-10 h-3" />
+          <BaseSkeleton className="w-full h-10" />
           <BaseSkeleton className="w-full h-10" />
           <BaseSkeleton className="w-full h-10" />
         </div>

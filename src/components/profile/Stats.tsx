@@ -88,7 +88,7 @@ export default function Stats({ userId }: { userId?: string | null }) {
     }
   }, [data]);
 
-  if (isPending) return <UserStatsSkeleton />;
+  if (isPending) return <UserStatsSkeleton myProfile={myProfile} />;
 
   return (
     <div className="flex flex-col md:w-100 p-5 gap-5 mb-0 bg-red-50 border-1 border-slate-500 rounded-lg text-black">
