@@ -6,6 +6,7 @@ import Stats from '@/components/profile/Stats';
 import Info from '@/components/profile/Info';
 
 import { useParams } from 'next/navigation';
+import Golfbag from '@/components/profile/golfbag/Golfbag';
 
 export default function Profile() {
   const params = useParams<{ id: string }>();
@@ -20,6 +21,7 @@ export default function Profile() {
             <Info userId={params?.id} />
           </div>
           <Calendar userId={params?.id} />
+          <Golfbag userId={params?.id} />
         </div>
       </main>
     </div>

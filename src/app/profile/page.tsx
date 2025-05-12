@@ -7,6 +7,7 @@ import SignInButton from '@/components/auth/SignInButton';
 import Calendar from '@/components/calendar/Calendar';
 import Stats from '@/components/profile/Stats';
 import Info from '@/components/profile/Info';
+import Golfbag from '@/components/profile/golfbag/Golfbag';
 
 import { UserStatsSkeleton } from '@/components/skeletons/UserStatsSkeleton';
 import { UserInfoSkeleton } from '@/components/skeletons/UserInfoSkeleton';
@@ -40,6 +41,7 @@ export default function Profile() {
               <Info />
             </div>
             <Calendar />
+            <Golfbag />
           </div>
         ) : (
           <>

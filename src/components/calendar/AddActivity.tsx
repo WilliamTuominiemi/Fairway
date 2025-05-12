@@ -49,11 +49,6 @@ export default function AddActivity() {
       return;
     }
 
-    if (!formData.date) {
-      console.error('Date is required');
-      return;
-    }
-
     setIsSubmitting(true);
     activityMutation.mutate();
   };
