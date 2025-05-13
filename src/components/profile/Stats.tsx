@@ -70,8 +70,6 @@ export default function Stats({ userId }: { userId?: string | null }) {
     setEditing(!editing);
 
     if (editing) {
-      console.log('Saving stats data:', statsData);
-
       statsMutation.mutate();
     }
   };

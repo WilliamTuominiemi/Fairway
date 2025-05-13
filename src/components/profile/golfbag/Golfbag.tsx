@@ -8,8 +8,8 @@ import { GolfbagSkeleton } from '@/components/skeletons/GolfbagSkeleton';
 interface Golfclub {
   id: string;
   userId: string;
-  type: string | null;
-  name: string | null;
+  type: string;
+  name: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -37,7 +37,13 @@ export default function Golfbag({ userId }: { userId?: string | null }) {
     <div className="grid md:grid-cols-4 m-10 gap-4">
       {myProfile && <AddGolfclub />}
       {data.map((club: Golfclub) => (
-        <Golfclub key={club.id} type={club.type} name={club.name} />
+        <Golfclub
+          key={club.id}
+          id={club.id}
+          type={club.type}
+          name={club.name}
+          myprofile={myProfile}
+        />
       ))}
     </div>
   );

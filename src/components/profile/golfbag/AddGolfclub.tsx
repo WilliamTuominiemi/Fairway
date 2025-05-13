@@ -68,19 +68,20 @@ export default function AddGolfclub() {
   };
 
   return (
-    <div className="flex flex-col w-42 gap-4 p-5 bg-emerald-50 border-1 border-slate-500 rounded-lg text-black">
+    <div className="flex flex-col w-42 gap-4 p-5 bg-red-50 border-1 border-slate-500 rounded-lg text-black">
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input
           id="name"
           type="text"
           placeholder="Golfclub Name"
           value={formData.name}
+          maxLength={50}
           onChange={handleChange}
-          className="p-2 border border-slate-500 rounded-lg"
+          className="p-2 border bg-white border-slate-500 rounded-lg"
         />
         <select
           id="type"
-          className="p-2 border border-slate-500 rounded-lg"
+          className="p-2 border bg-white border-slate-500 rounded-lg"
           value={formData.type || ''}
           onChange={handleChange}
           required

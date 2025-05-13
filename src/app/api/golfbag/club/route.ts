@@ -21,7 +21,13 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
       },
     });
 
-    return new NextResponse(JSON.stringify(golfclubs), { status: 200 });
+    const typeOrder = ['Driver', 'Wood', 'Hybrid', 'Iron', 'Wedge', 'Putter'];
+
+    const sortedClubs = golfclubs.sort((a, b) => {
+      return typeOrder.indexOf(a.type) - typeOrder.indexOf(b.type);
+    });
+
+    return new NextResponse(JSON.stringify(sortedClubs), { status: 200 });
   } catch (error) {
     return new NextResponse(
       JSON.stringify({
