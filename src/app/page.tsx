@@ -1,36 +1,26 @@
 'use client';
-import { useQuery } from '@tanstack/react-query';
+
+import { useUsers } from '@/hooks/useUsers';
+
 import Navbar from '@/components/Navbar';
-import Entry from '@/components/feed/Entry';
-import { User } from '@/types/index';
+import Feed from '@/components/feed/Feed';
+import ErrorMessage from '@/components/error/ErrorMessage';
 
 import { FeedSkeleton } from '@/components/skeletons/FeedSkeleton';
 
-export default function Home() {
-  const { isPending, error, data } = useQuery({
-    queryKey: ['users'],
-    queryFn: () => fetch(`/api/users/`).then((res) => res.json()),
-  });
+const Home = () => {
+  const { isPending, error, data: users } = useUsers();
 
   return (
     <div className="flex flex-col items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
       <Navbar />
       <main className="flex flex-col items-center sm:items-start">
-        {isPending ? (
-          <FeedSkeleton />
-        ) : error ? (
-          <h1 className="text-4xl p-5 text-red-500">Error: {error.message}</h1>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            {data &&
-              data.map((user: User) => (
-                <div key={user.id}>
-                  <Entry user={user} />
-                </div>
-              ))}
-          </div>
-        )}
+        {isPending && <FeedSkeleton />}
+        {error && <ErrorMessage message={error.message} />}
+        {users && <Feed users={users} />}
       </main>
     </div>
   );
-}
+};
+
+export default Home;

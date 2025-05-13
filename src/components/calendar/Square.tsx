@@ -1,5 +1,3 @@
-'use client';
-
 interface Activity {
   id: string;
   userId: string;
@@ -15,7 +13,7 @@ interface SquareProps {
   isFeed?: boolean;
 }
 
-export default function Square({ activities = [], isFeed }: SquareProps) {
+const Square = ({ activities = [], isFeed }: SquareProps) => {
   const getBackgroundColor = () => {
     const activityCount = activities.length;
     if (activityCount === 0) return 'bg-red-50';
@@ -34,4 +32,6 @@ export default function Square({ activities = [], isFeed }: SquareProps) {
       title={activities.map((activity) => activity.type).join(', ')}
     ></div>
   );
-}
+};
+
+export default Square;

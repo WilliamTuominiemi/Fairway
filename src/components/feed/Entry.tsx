@@ -1,9 +1,11 @@
-import Calendar from '@/components/calendar/Calendar';
-import { User } from '@/types/index';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Entry({ user }: { user: User }) {
+import Calendar from '@/components/calendar/Calendar';
+
+import { User } from '@/types/index';
+
+const Entry = ({ user }: { user: User }) => {
   return (
     <div className="p-5">
       <Link
@@ -19,8 +21,9 @@ export default function Entry({ user }: { user: User }) {
         />
         <h1 className="text-xl">{user.name}</h1>
       </Link>
-
       <Calendar userId={user.id} isFeed={true} />
     </div>
   );
-}
+};
+
+export default Entry;

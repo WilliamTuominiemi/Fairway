@@ -13,11 +13,7 @@ import { UserStatsSkeleton } from '@/components/skeletons/UserStatsSkeleton';
 import { UserInfoSkeleton } from '@/components/skeletons/UserInfoSkeleton';
 import { CalendarSkeleton } from '@/components/skeletons/CalendarSkeleton';
 
-import { useParams } from 'next/navigation';
-
 export default function Profile() {
-  const params = useParams<{ id: string }>();
-
   const { data: session, status } = useSession();
   const isLoading = status === 'loading';
 
@@ -25,7 +21,6 @@ export default function Profile() {
     <div className="flex flex-col items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
       <Navbar />
       <main className="flex flex-col items-center sm:items-start">
-        {params?.id}
         {isLoading ? (
           <div>
             <div className="flex flex-col m-10 gap-12 sm:flex-row">

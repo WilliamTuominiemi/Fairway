@@ -1,6 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
-import Square from './Square';
-import AddActivity from './AddActivity';
+import { useActivities } from '@/hooks/useActivities';
+
+import Square from '@/components/calendar/Square';
+import AddActivity from '@/components/calendar/AddActivity';
 
 import { CalendarSkeleton } from '@/components/skeletons/CalendarSkeleton';
 
@@ -14,22 +15,16 @@ interface Activity {
   updatedAt: string;
 }
 
-export default function Calendar({
+const Calendar = ({
   userId,
   isFeed = false,
 }: {
   userId?: string | null;
   isFeed?: boolean;
-}) {
+}) => {
   const myProfile = !userId;
 
-  const queryKey = ['activities', userId ?? 'self'];
-
-  const { isPending, error, data } = useQuery({
-    queryKey,
-    queryFn: () =>
-      fetch(`/api/activities?userId=${userId ?? ''}`).then((res) => res.json()),
-  });
+  const { isPending, error, data: activities } = useActivities(userId || '');
 
   const getDays = () => {
     const days = [];
@@ -46,10 +41,14 @@ export default function Calendar({
   const getActivitiesForDay = (day: Date) => {
     const dayStr = day.toISOString().split('T')[0];
 
-    return data.filter((activity: Activity) => {
-      const activityDate = new Date(activity.date).toISOString().split('T')[0];
-      return activityDate === dayStr;
-    });
+    return (
+      activities?.filter((activity: Activity) => {
+        const activityDate = new Date(activity.date)
+          .toISOString()
+          .split('T')[0];
+        return activityDate === dayStr;
+      }) || []
+    );
   };
 
   if (isPending)
@@ -88,4 +87,6 @@ export default function Calendar({
       </div>
     </div>
   );
-}
+};
+
+export default Calendar;

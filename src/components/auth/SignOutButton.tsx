@@ -1,6 +1,6 @@
 import { signOut } from 'next-auth/react';
 
-export default function SignOut() {
+const SignOut = () => {
   return (
     <button
       onClick={() => signOut()}
@@ -9,4 +9,6 @@ export default function SignOut() {
       Sign out
     </button>
   );
-}
+};
+
+export default SignOut;

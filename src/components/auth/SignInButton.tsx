@@ -1,6 +1,6 @@
 import { signIn } from 'next-auth/react';
 
-export default function SignIn() {
+const SignIn = () => {
   return (
     <button
       onClick={() => signIn('google')}
@@ -9,4 +9,6 @@ export default function SignIn() {
       Sign in with Google
     </button>
   );
-}
+};
+
+export default SignIn;

@@ -1,5 +1,3 @@
-'use client';
-
 import Navbar from '@/components/Navbar';
 import Calendar from '@/components/calendar/Calendar';
 import Stats from '@/components/profile/Stats';
