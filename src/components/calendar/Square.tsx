@@ -22,6 +22,7 @@ const Square = ({ activities = [], isFeed }: SquareProps) => {
         isFeed ? 'h-5 w-5 md:h-7 md:w-7' : 'h-7 w-7 md:h-10 md:w-10'
       } rounded-sm border border-slate-500 ${backgroundColor}`}
       title={activities.map((activity) => activity.type).join(', ')}
+      data-testid="square"
     ></div>
   );
 };

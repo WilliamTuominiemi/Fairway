@@ -30,7 +30,10 @@ const AddActivity = () => {
   };
 
   return (
-    <div className="flex flex-col md:w-75 gap-4 p-5 m-5 bg-emerald-50 border-1 border-slate-500 rounded-lg text-black">
+    <div
+      className="flex flex-col md:w-75 gap-4 p-5 m-5 bg-emerald-50 border-1 border-slate-500 rounded-lg text-black"
+      data-testid="add-activity"
+    >
       <h1>Add activity</h1>
       <ActivityForm
         onSubmit={handleSubmit}

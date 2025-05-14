@@ -55,6 +55,7 @@ const Calendar = ({
       className={`flex flex-col md:flex-row ${
         isFeed ? 'gap-2 m-2' : 'gap-4 m-5'
       } align-middle text-center`}
+      data-testid="calendar"
     >
       {!isFeed && myProfile && <AddActivity />}
       <div
