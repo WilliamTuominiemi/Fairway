@@ -1,14 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-interface Activity {
-  id: string;
-  userId: string;
-  type: string | null;
-  details: string | null;
-  date: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { Activity } from '@/types/index';
 
 export const fetchActivities = async (userId?: string): Promise<Activity[]> => {
   const response = await fetch(`/api/activities?userId=${userId ?? ''}`);

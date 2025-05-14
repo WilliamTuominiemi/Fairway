@@ -1,31 +1,16 @@
-import { useQuery } from '@tanstack/react-query';
+import { useGolfclubs } from '@/hooks/useGolfclubs';
 
-import Golfclub from './Golfclub';
-import AddGolfclub from './AddGolfclub';
+import GolfclubInBag from '@/components/profile/golfbag/GolfclubInBag';
+import AddGolfclub from '@/components/profile/golfbag//AddGolfclub';
 
 import { GolfbagSkeleton } from '@/components/skeletons/GolfbagSkeleton';
 
-interface Golfclub {
-  id: string;
-  userId: string;
-  type: string;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { Golfclub } from '@/types/index';
 
 export default function Golfbag({ userId }: { userId?: string | null }) {
   const myProfile = !userId;
 
-  const queryKey = ['golfclubs', userId ?? 'self'];
-
-  const { isPending, error, data } = useQuery({
-    queryKey,
-    queryFn: () =>
-      fetch(`/api/golfbag/club?userId=${userId ?? ''}`).then((res) =>
-        res.json(),
-      ),
-  });
+  const { isPending, error, data } = useGolfclubs(userId || '');
 
   if (isPending) return <GolfbagSkeleton />;
   if (error)
@@ -37,7 +22,7 @@ export default function Golfbag({ userId }: { userId?: string | null }) {
     <div className="grid md:grid-cols-4 m-10 gap-4">
       {myProfile && <AddGolfclub />}
       {data.map((club: Golfclub) => (
-        <Golfclub
+        <GolfclubInBag
           key={club.id}
           id={club.id}
           type={club.type}

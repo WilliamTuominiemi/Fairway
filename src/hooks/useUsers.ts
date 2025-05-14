@@ -1,4 +1,3 @@
-// hooks/useUsers.ts
 import { useQuery } from '@tanstack/react-query';
 
 // API function inside the same file as the hook

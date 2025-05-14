@@ -1,4 +1,3 @@
-// hooks/useActivityMutation.ts
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface ActivityFormData {
@@ -6,13 +5,9 @@ interface ActivityFormData {
   type: string;
 }
 
-// API function
 export const addActivity = async (formData: ActivityFormData) => {
   const response = await fetch('/api/activities', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(formData),
   });
 
@@ -25,7 +20,6 @@ export const addActivity = async (formData: ActivityFormData) => {
   return response.json();
 };
 
-// Hook that handles activity mutation
 export const useActivityMutation = (
   onSuccessCallback?: () => void,
   onErrorCallback?: (error: Error) => void,

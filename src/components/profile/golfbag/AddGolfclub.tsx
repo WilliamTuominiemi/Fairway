@@ -1,13 +1,13 @@
 import { useSession } from 'next-auth/react';
 
-import { useGolfclubMutation } from '@/hooks/useGolfclubMutation';
+import { useAddGolfClubMutation } from '@/hooks/useGolfclubMutation';
 
 import GolfclubForm from '@/components/profile/golfbag/GolfclubForm';
 
 const AddGolfclub = () => {
   const { data: session } = useSession();
 
-  const clubMutation = useGolfclubMutation();
+  const clubMutation = useAddGolfClubMutation();
 
   const handleSubmit = (formData: { name: string; type: string }) => {
     if (!session) {

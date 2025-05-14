@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
+import { Activity } from '@/types/index';
+
 export const GET = async (req: NextRequest): Promise<NextResponse> => {
   try {
     const session = await auth();
@@ -15,7 +17,7 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
 
     const userId = userIdParam || (session?.user?.id ?? '');
 
-    const activities = await prisma.activity.findMany({
+    const activities: Activity[] = await prisma.activity.findMany({
       where: {
         userId,
       },

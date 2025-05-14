@@ -1,12 +1,4 @@
-interface Activity {
-  id: string;
-  userId: string;
-  type: string | null;
-  details: string | null;
-  date: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { Activity } from '@/types/index';
 
 interface SquareProps {
   activities?: Activity[];

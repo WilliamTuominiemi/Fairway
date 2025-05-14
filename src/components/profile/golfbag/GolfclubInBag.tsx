@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useUpdateGolfClubMutation } from '@/hooks/useGolfclubMutation';
 
 interface GolfclubProps {
   id: string;
@@ -8,44 +8,24 @@ interface GolfclubProps {
   myprofile?: boolean;
 }
 
-export default function Golfclub({ id, type, name, myprofile }: GolfclubProps) {
+export default function GolfclubInBag({
+  id,
+  type,
+  name,
+  myprofile,
+}: GolfclubProps) {
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     type: '',
   });
-  const queryClient = useQueryClient();
 
-  const clubMutation = useMutation({
-    mutationFn: async () => {
-      const response = await fetch(`/api/golfbag/club/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => null);
-        console.error('Server response:', errorData);
-        throw new Error(`Failed to updating golfclub: ${response.status}`);
-      }
-
-      return response.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['golfclubs'] });
-    },
-    onError: (error) => {
-      console.error('Error updating golfclub:', error);
-    },
-  });
+  const updateMutation = useUpdateGolfClubMutation();
 
   const toggleEdit = () => {
     setEditing(!editing);
     if (editing) {
-      clubMutation.mutate();
+      updateMutation.mutate({ id, data: formData });
     }
   };
 
