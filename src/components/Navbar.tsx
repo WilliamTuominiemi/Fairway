@@ -6,6 +6,8 @@ import Link from 'next/link';
 import SignInButton from './auth/SignInButton';
 import SignOutButton from './auth/SignOutButton';
 
+import favicon from '@/../public/inlinesvg/favicon.svg';
+
 import { NavbarSkeleton } from '@/components/skeletons/NavbarSkeleton';
 
 export default function AuthStatus() {
@@ -14,7 +16,14 @@ export default function AuthStatus() {
 
   return (
     <header className="flex flex-row gap-5 h-20 items-center justify-between w-full p-4 bg-green-800 text-white">
-      <Link href="/" className="text-2xl font-bold">
+      <Link href="/" className="text-2xl font-bold flex flex-row">
+        <Image
+          src={favicon}
+          alt="Fairway Logo"
+          width={25}
+          height={25}
+          className="rounded-full mr-2"
+        />
         Fairway
       </Link>
       <div className="flex flex-row items-center justify-end w-full">

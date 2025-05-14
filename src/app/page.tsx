@@ -12,7 +12,7 @@ const Home = () => {
   const { isPending, error, data: users } = useUsers();
 
   return (
-    <div className="flex flex-col items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
+    <div className="flex flex-col items-center justify-items-center min-h-screen">
       <Navbar />
       <main className="flex flex-col items-center sm:items-start">
         {isPending && <FeedSkeleton />}
