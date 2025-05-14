@@ -4,16 +4,15 @@ import { prisma } from '@/lib/prisma';
 
 export async function PUT(
   req: NextRequest,
-  context: { params: { id: string } },
+  context: { params: Promise<{ id: string }> },
 ) {
   try {
     const session = await auth();
-
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const clubId = context.params.id;
+    const { id: clubId } = await context.params;
 
     // Check if the club exists and belongs to the user
     const existingClub = await prisma.golfclub.findUnique({

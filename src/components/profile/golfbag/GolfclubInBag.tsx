@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+
+import { useForm } from '@/hooks/useForm';
 import { useUpdateGolfClubMutation } from '@/hooks/useGolfclubMutation';
 
 interface GolfclubProps {
@@ -15,9 +17,9 @@ export default function GolfclubInBag({
   myprofile,
 }: GolfclubProps) {
   const [editing, setEditing] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    type: '',
+  const { formData, handleChange, setFormData } = useForm({
+    name: name,
+    type: type,
   });
 
   const updateMutation = useUpdateGolfClubMutation();
@@ -33,22 +35,12 @@ export default function GolfclubInBag({
     e.preventDefault();
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
-  };
-
   useEffect(() => {
     setFormData({
       name: name,
       type: type,
     });
-  }, [name, type]);
+  }, [name, type, setFormData]);
 
   return (
     <div className="group flex flex-col w-42 h-45 p-4 bg-emerald-50 border border-slate-500 rounded-lg text-black hover:bg-emerald-100 transition-colors duration-200">

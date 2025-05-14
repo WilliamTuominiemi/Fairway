@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useForm } from '@/hooks/useForm';
 
 interface ActivityFormProps {
   onSubmit: (formData: { date: string; type: string }) => void;
@@ -13,7 +13,7 @@ const ActivityForm = ({
   isError,
   isSuccess,
 }: ActivityFormProps) => {
-  const [formData, setFormData] = useState({
+  const { formData, handleChange, handleReset } = useForm({
     date: '',
     type: '',
   });
@@ -21,21 +21,8 @@ const ActivityForm = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(formData);
+    handleReset();
   };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
-  };
-
-  if (isSuccess && (formData.date !== '' || formData.type !== '')) {
-    setFormData({ date: '', type: '' });
-  }
 
   return (
     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>

@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useForm } from '@/hooks/useForm';
 
 interface GolfClubformProps {
   onSubmit: (formData: { name: string; type: string }) => void;
 }
 
 const GolfclubForm = ({ onSubmit }: GolfClubformProps) => {
-  const [formData, setFormData] = useState({
+  const { formData, handleChange, handleReset } = useForm({
     name: '',
     type: '',
   });
@@ -14,17 +14,7 @@ const GolfclubForm = ({ onSubmit }: GolfClubformProps) => {
     e.preventDefault();
     onSubmit(formData);
 
-    setFormData({ name: '', type: '' });
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
+    handleReset();
   };
 
   return (

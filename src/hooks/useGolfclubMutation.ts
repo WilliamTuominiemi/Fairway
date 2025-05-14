@@ -31,11 +31,10 @@ export const addGolfClub = async (formData: GolfClubFormData) => {
 
 // API function for updating a golf club
 export const updateGolfClub = async ({ id, data }: UpdateGolfClubParams) => {
+  console.log(id);
+
   const response = await fetch(`/api/golfbag/club/${id}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(data),
   });
 
