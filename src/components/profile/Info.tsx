@@ -1,15 +1,11 @@
 import Image from 'next/image';
-import { useQuery } from '@tanstack/react-query';
+
+import { useInfo } from '@/hooks/useInfo';
 
 import { UserInfoSkeleton } from '@/components/skeletons/UserInfoSkeleton';
 
 export default function Info({ userId }: { userId?: string | null }) {
-  const queryKey = ['info', 'self'];
-  const { isPending, error, data } = useQuery({
-    queryKey,
-    queryFn: () =>
-      fetch(`/api/user?userId=${userId ?? ''}`).then((res) => res.json()),
-  });
+  const { isPending, error, data } = useInfo(userId || '');
 
   const daysSince = (date: string) => {
     const today = new Date();

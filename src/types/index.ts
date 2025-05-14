@@ -23,3 +23,25 @@ export type Activity = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type Stats = {
+  id: string;
+  userId: string;
+  handicap: number;
+  averageScore: number;
+  drivingAccuracy: number;
+  greensInRegulation: number;
+  puttsPerRound: number;
+  createdAt: number;
+  updatedAt: number;
+};
+
+export type UserInfo = {
+  id: string;
+  name: string;
+  email: string;
+  emailVerified: string | null;
+  image: string;
+  createdAt: string;
+  updatedAt: string;
+};

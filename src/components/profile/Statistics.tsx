@@ -1,44 +1,21 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { useQuery, useMutation } from '@tanstack/react-query';
+
+import { useStats } from '@/hooks/useStats';
+import { useStatsMutation } from '@/hooks/useStatsMutation';
 
 import { UserStatsSkeleton } from '@/components/skeletons/UserStatsSkeleton';
 
-interface Stats {
-  id: string;
-  userId: string;
-  handicap: number;
-  averageScore: number;
-  drivingAccuracy: number;
-  greensInRegulation: number;
-  puttsPerRound: number;
-  createdAt: number;
-  updatedAt: number;
-}
-
-interface StatsFormData {
-  handicap: number;
-  averageScore: number;
-  drivingAccuracy: number;
-  greensInRegulation: number;
-  puttsPerRound: number;
-}
-
-export default function Stats({ userId }: { userId?: string | null }) {
+const Statistics = ({ userId }: { userId?: string | null }) => {
   const { data: session } = useSession();
 
+  const { isPending, error, data } = useStats(userId || '');
+  const statsMutation = useStatsMutation();
+
   const myProfile = !userId;
-
-  const queryKey = ['stats', 'self'];
-  const { isPending, error, data } = useQuery({
-    queryKey,
-    queryFn: () =>
-      fetch(`/api/stats?userId=${userId ?? ''}`).then((res) => res.json()),
-  });
-
   const [editing, setEditing] = useState(false);
-  const [statsData, setStatsData] = useState<StatsFormData>({
+  const [statsData, setStatsData] = useState({
     handicap: 0,
     averageScore: 0,
     drivingAccuracy: 0,
@@ -46,31 +23,11 @@ export default function Stats({ userId }: { userId?: string | null }) {
     puttsPerRound: 0,
   });
 
-  const statsMutation = useMutation({
-    mutationFn: async () => {
-      const response = await fetch('/api/stats', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(statsData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => null);
-        console.error('Server response:', errorData);
-        throw new Error(`Failed to add stats data: ${response.status}`);
-      }
-
-      return response.json();
-    },
-  });
-
   const toggleEdit = () => {
     setEditing(!editing);
 
     if (editing) {
-      statsMutation.mutate();
+      statsMutation.mutate(statsData);
     }
   };
 
@@ -212,4 +169,6 @@ export default function Stats({ userId }: { userId?: string | null }) {
       )}
     </div>
   );
-}
+};
+
+export default Statistics;

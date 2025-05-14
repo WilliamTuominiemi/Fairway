@@ -2,7 +2,7 @@
 
 import Navbar from '@/components/Navbar';
 import Calendar from '@/components/calendar/Calendar';
-import Stats from '@/components/profile/Stats';
+import Statistics from '@/components/profile/Statistics';
 import Info from '@/components/profile/Info';
 
 import { useParams } from 'next/navigation';
@@ -17,7 +17,7 @@ export default function Profile() {
       <main className="flex flex-col items-center sm:items-start">
         <div>
           <div className="flex flex-col m-10 gap-12 sm:flex-row">
-            <Stats userId={params?.id} />
+            <Statistics userId={params?.id} />
             <Info userId={params?.id} />
           </div>
           <Calendar userId={params?.id} />

@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
 import SignInButton from '@/components/auth/SignInButton';
 import Calendar from '@/components/calendar/Calendar';
-import Stats from '@/components/profile/Stats';
+import Statistics from '@/components/profile/Statistics';
 import Info from '@/components/profile/Info';
 import Golfbag from '@/components/profile/golfbag/Golfbag';
 
@@ -32,7 +32,7 @@ export default function Profile() {
         ) : session ? (
           <div>
             <div className="flex flex-col m-10 gap-12 sm:flex-row">
-              <Stats />
+              <Statistics />
               <Info />
             </div>
             <Calendar />

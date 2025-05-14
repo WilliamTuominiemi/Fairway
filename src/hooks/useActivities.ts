@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { Activity } from '@/types/index';
 
-export const fetchActivities = async (userId?: string): Promise<Activity[]> => {
+const fetchActivities = async (userId?: string): Promise<Activity[]> => {
   const response = await fetch(`/api/activities?userId=${userId ?? ''}`);
 
   if (!response.ok) {
