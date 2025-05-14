@@ -43,7 +43,9 @@ export default function GolfclubInBag({
   }, [name, type, setFormData]);
 
   return (
-    <div className="group flex flex-col w-42 h-45 p-4 bg-emerald-50 border border-slate-500 rounded-lg text-black hover:bg-emerald-100 transition-colors duration-200">
+    <div
+      className={`group flex flex-col w-42 h-45 p-4 ${editing ? 'bg-emerald-200' : 'bg-emerald-50'} border border-slate-500 rounded-lg text-black hover:bg-emerald-100 transition-colors duration-200`}
+    >
       {editing ? (
         <form onSubmit={handleSubmit} className="flex-1 space-y-2 min-h-0">
           <select
@@ -79,7 +81,9 @@ export default function GolfclubInBag({
       )}
 
       {myprofile && (
-        <div className="mt-2 flex justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+        <div
+          className={`mt-2 flex justify-end ${editing ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity duration-150`}
+        >
           <button
             type="button"
             className="w-25 self-end bg-green-700 hover:bg-green-900 active:scale-95 p-2 rounded-md text-emerald-50 transition-transform duration-75"

@@ -22,7 +22,7 @@ const GolfclubForm = ({ onSubmit }: GolfClubformProps) => {
       <input
         id="name"
         type="text"
-        placeholder="Golf Club Name"
+        placeholder="Name"
         value={formData.name}
         maxLength={50}
         onChange={handleChange}
