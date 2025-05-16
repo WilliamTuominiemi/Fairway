@@ -28,6 +28,7 @@ const GolfclubForm = ({ onSubmit }: GolfClubformProps) => {
         onChange={handleChange}
         className="p-2 border bg-white border-slate-500 rounded-lg"
         required
+        data-testid="name-input"
       />
       <select
         id="type"
@@ -35,6 +36,7 @@ const GolfclubForm = ({ onSubmit }: GolfClubformProps) => {
         value={formData.type}
         onChange={handleChange}
         required
+        data-testid="type-select"
       >
         <option value="">Select type</option>
         <option value="Driver">Driver</option>
@@ -47,6 +49,7 @@ const GolfclubForm = ({ onSubmit }: GolfClubformProps) => {
       <button
         type="submit"
         className="bg-green-700 hover:bg-green-900 active:scale-95 p-2 rounded-md text-emerald-50 transition-transform duration-75"
+        data-testid="add-golfclub-button"
       >
         Add Golfclub
       </button>

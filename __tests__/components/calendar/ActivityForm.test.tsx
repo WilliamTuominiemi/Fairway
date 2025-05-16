@@ -47,7 +47,11 @@ describe('ActivityForm', () => {
     const typeSelect = screen.getByTestId('type-select');
     const submitButton = screen.getByTestId('add-activity-button');
 
-    fireEvent.change(dateInput, { target: { value: '2025-05-15' } });
+    const futureDate = new Date();
+    futureDate.setFullYear(futureDate.getFullYear() + 1);
+    const formattedFutureDate = futureDate.toISOString().split('T')[0];
+
+    fireEvent.change(dateInput, { target: { value: formattedFutureDate } });
     fireEvent.change(typeSelect, { target: { value: '18-hole round' } });
     fireEvent.click(submitButton);
     expect(mockOnSubmit).not.toHaveBeenCalled();
