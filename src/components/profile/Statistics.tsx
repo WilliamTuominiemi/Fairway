@@ -6,6 +6,7 @@ import { useStats } from '@/hooks/useStats';
 import { useStatsMutation } from '@/hooks/useStatsMutation';
 
 import { UserStatsSkeleton } from '@/components/skeletons/UserStatsSkeleton';
+import ErrorMessage from '@/components/error/ErrorMessage';
 
 const Statistics = ({ userId }: { userId?: string | null }) => {
   const { data: session } = useSession();
@@ -48,11 +49,9 @@ const Statistics = ({ userId }: { userId?: string | null }) => {
   return (
     <div className="flex flex-col md:w-100 p-5 gap-5 mb-0 bg-red-50 border-1 border-slate-500 rounded-lg text-black">
       {error ? (
-        <div className="flex gap-4 m-5 text-red-500">
-          Error: {error.message}
-        </div>
+        <ErrorMessage message={error.message} />
       ) : (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2" data-testid="statistics">
           <div className="flex flex-row gap-5 h-9 justify-between items-center">
             <p>Handicap</p>
             {editing ? (
@@ -74,7 +73,7 @@ const Statistics = ({ userId }: { userId?: string | null }) => {
             )}
           </div>
           <div className="flex flex-row gap-5 h-9 justify-between items-center">
-            <p>Average score</p>
+            <p>Average Score</p>
             {editing ? (
               <input
                 type="number"
