@@ -2,6 +2,7 @@ import { useGolfclubs } from '@/hooks/useGolfclubs';
 
 import GolfclubInBag from '@/components/profile/golfbag/GolfclubInBag';
 import AddGolfclub from '@/components/profile/golfbag//AddGolfclub';
+import ErrorMessage from '@/components/error/ErrorMessage';
 
 import { GolfbagSkeleton } from '@/components/skeletons/GolfbagSkeleton';
 
@@ -13,10 +14,7 @@ export default function Golfbag({ userId }: { userId?: string | null }) {
   const { isPending, error, data } = useGolfclubs(userId || '');
 
   if (isPending) return <GolfbagSkeleton />;
-  if (error)
-    return (
-      <div className="flex gap-4 m-5 text-red-500">Error: {error.message}</div>
-    );
+  if (error) return <ErrorMessage message={error.message}></ErrorMessage>;
 
   return (
     <div className="grid md:grid-cols-4 m-10 gap-4" data-testid="golfbag">

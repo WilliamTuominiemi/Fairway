@@ -32,6 +32,17 @@ describe('Golfbag', () => {
     expect(loadingSkeleton).toBeDefined();
   });
 
+  it('renders error state', () => {
+    useGolfclubsMock.mockReturnValue({
+      isPending: false,
+      error: new Error('Failed to load golf clubs'),
+      data: null,
+    });
+    renderWithClient(<Golfbag />);
+    const errorMessage = screen.getByTestId('error-message');
+    expect(errorMessage).toBeDefined();
+  });
+
   it('renders the Golfbag component', () => {
     useGolfclubsMock.mockReturnValue({
       isPending: false,

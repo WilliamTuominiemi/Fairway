@@ -27,6 +27,17 @@ describe('Info', () => {
     expect(loadingSkeleton).toBeDefined();
   });
 
+  it('renders error state', () => {
+    useInfoMock.mockReturnValue({
+      isPending: false,
+      error: new Error('Failed to load user info'),
+      data: null,
+    });
+    render(<Info userId="123" />);
+    const errorMessage = screen.getByTestId('error-message');
+    expect(errorMessage).toBeDefined();
+  });
+
   it('When userId is provided renders user information', () => {
     useInfoMock.mockReturnValue({
       isPending: false,

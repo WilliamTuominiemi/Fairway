@@ -4,6 +4,8 @@ import { useInfo } from '@/hooks/useInfo';
 
 import { UserInfoSkeleton } from '@/components/skeletons/UserInfoSkeleton';
 
+import ErrorMessage from '@/components/error/ErrorMessage';
+
 export default function Info({ userId }: { userId?: string | null }) {
   const { isPending, error, data } = useInfo(userId || '');
 
@@ -19,7 +21,7 @@ export default function Info({ userId }: { userId?: string | null }) {
 
   return (
     <div className="flex flex-col md:w-70 p-5 mb-0 bg-emerald-50 border-1 border-slate-500 rounded-lg text-black items-center justify-center">
-      {error && <h1>Error: {error.message}</h1>}
+      {error && <ErrorMessage message={error.message} />}
       {data && (
         <div className="flex flex-col items-center gap-5">
           <Image
