@@ -1,32 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import Calendar from '@/components/calendar/Calendar';
 
+const useActivitiesMock = vi.fn();
 vi.mock('@/hooks/useActivities', () => ({
-  useActivities: vi.fn(() => ({
-    isPending: false,
-    error: null,
-    data: [
-      {
-        id: '1',
-        userId: '1',
-        type: 'Simulator',
-        details: 'test',
-        date: '2023-10-01',
-        createdAt: '2023-10-01',
-        updatedAt: '2023-10-01',
-      },
-      {
-        id: '2',
-        userId: '1',
-        type: 'Range',
-        details: 'test',
-        date: '2023-10-02',
-        createdAt: '2023-10-02',
-        updatedAt: '2023-10-02',
-      },
-    ],
-  })),
+  useActivities: () => useActivitiesMock(),
 }));
 
 vi.mock('@/components/calendar/Square', () => ({
@@ -38,6 +16,46 @@ vi.mock('@/components/calendar/AddActivity', () => ({
 }));
 
 describe('Calendar Component', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    useActivitiesMock.mockReturnValue({
+      isPending: false,
+      error: null,
+      data: [
+        {
+          id: '1',
+          userId: '1',
+          type: 'Simulator',
+          details: 'test',
+          date: '2023-10-01',
+          createdAt: '2023-10-01',
+          updatedAt: '2023-10-01',
+        },
+        {
+          id: '2',
+          userId: '1',
+          type: 'Range',
+          details: 'test',
+          date: '2023-10-02',
+          createdAt: '2023-10-02',
+          updatedAt: '2023-10-02',
+        },
+      ],
+    });
+  });
+
+  it('renders loading state', () => {
+    useActivitiesMock.mockReturnValue({
+      isPending: true,
+      error: null,
+      data: null,
+    });
+
+    render(<Calendar />);
+    const loadingSkeleton = screen.getAllByTestId('loading-skeleton');
+    expect(loadingSkeleton).toBeDefined();
+  });
+
   it('renders the Calendar component with AddActivity and Squares', () => {
     render(<Calendar />);
 

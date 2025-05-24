@@ -2,16 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import Info from '@/components/profile/Info';
 
+const useInfoMock = vi.fn();
 vi.mock('@/hooks/useInfo', () => ({
-  useInfo: vi.fn(() => ({
-    isPending: false,
-    error: null,
-    data: {
-      name: 'John Doe',
-      image: 'https://example.com/image.jpg',
-      createdAt: '2023-01-01T00:00:00Z',
-    },
-  })),
+  useInfo: () => useInfoMock(),
 }));
 
 vi.mock('@/hooks/useActivityMutation', () => ({
@@ -23,7 +16,28 @@ vi.mock('@/hooks/useActivityMutation', () => ({
 }));
 
 describe('Info', () => {
+  it('renders loading state', () => {
+    useInfoMock.mockReturnValue({
+      isPending: true,
+      error: null,
+      data: null,
+    });
+    render(<Info userId="123" />);
+    const loadingSkeleton = screen.getAllByTestId('loading-skeleton');
+    expect(loadingSkeleton).toBeDefined();
+  });
+
   it('When userId is provided renders user information', () => {
+    useInfoMock.mockReturnValue({
+      isPending: false,
+      error: null,
+      data: {
+        name: 'John Doe',
+        image: 'https://example.com/image.jpg',
+        createdAt: '2023-01-01T00:00:00Z',
+      },
+    });
+
     render(<Info userId="123" />);
     const nameElement = screen.getByText('John Doe');
     const imageElement = screen.getByAltText('User Image');

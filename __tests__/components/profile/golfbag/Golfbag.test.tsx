@@ -15,27 +15,41 @@ vi.mock('next-auth/react', () => ({
   })),
 }));
 
+const useGolfclubsMock = vi.fn();
 vi.mock('@/hooks/useGolfclubs', () => ({
-  useGolfclubs: vi.fn(() => ({
-    isPending: false,
-    error: null,
-    data: [
-      {
-        id: '1',
-        type: 'Driver',
-        name: 'TaylorMade SIM2',
-      },
-      {
-        id: '2',
-        type: 'Iron',
-        name: 'Callaway Apex',
-      },
-    ],
-  })),
+  useGolfclubs: () => useGolfclubsMock(),
 }));
 
 describe('Golfbag', () => {
+  it('renders loading state', () => {
+    useGolfclubsMock.mockReturnValue({
+      isPending: true,
+      error: null,
+      data: null,
+    });
+    renderWithClient(<Golfbag />);
+    const loadingSkeleton = screen.getAllByTestId('loading-skeleton');
+    expect(loadingSkeleton).toBeDefined();
+  });
+
   it('renders the Golfbag component', () => {
+    useGolfclubsMock.mockReturnValue({
+      isPending: false,
+      error: null,
+      data: [
+        {
+          id: '1',
+          type: 'Driver',
+          name: 'TaylorMade SIM2',
+        },
+        {
+          id: '2',
+          type: 'Iron',
+          name: 'Callaway Apex',
+        },
+      ],
+    });
+
     renderWithClient(<Golfbag />);
     const golfbagElement = screen.getByTestId('golfbag');
     expect(golfbagElement).toBeDefined();

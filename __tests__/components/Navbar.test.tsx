@@ -22,6 +22,16 @@ describe('Navbar', () => {
     vi.clearAllMocks();
   });
 
+  it('renders loading state', () => {
+    useSessionMock.mockReturnValue({
+      data: null,
+      status: 'loading',
+    });
+    render(<Navbar />);
+    const loadingElement = screen.getAllByTestId('loading-skeleton');
+    expect(loadingElement).toBeDefined();
+  });
+
   it('renders the Navbar component', () => {
     useSessionMock.mockReturnValue({
       data: null,

@@ -5,31 +5,9 @@ import { User } from '@/types/index';
 
 import Entry from '@/components/feed/Entry';
 
+const useActivitiesMock = vi.fn();
 vi.mock('@/hooks/useActivities', () => ({
-  useActivities: vi.fn(() => ({
-    isPending: false,
-    error: null,
-    data: [
-      {
-        id: '1',
-        userId: '1',
-        type: 'Simulator',
-        details: 'test',
-        date: '2023-10-01',
-        createdAt: '2023-10-01',
-        updatedAt: '2023-10-01',
-      },
-      {
-        id: '2',
-        userId: '1',
-        type: 'Range',
-        details: 'test',
-        date: '2023-10-02',
-        createdAt: '2023-10-02',
-        updatedAt: '2023-10-02',
-      },
-    ],
-  })),
+  useActivities: () => useActivitiesMock(),
 }));
 
 const mockUser: User = {
@@ -40,7 +18,43 @@ const mockUser: User = {
 };
 
 describe('Entry', () => {
+  it('renders loading state', () => {
+    useActivitiesMock.mockReturnValue({
+      isPending: true,
+      error: null,
+      data: null,
+    });
+    render(<Entry user={mockUser} />);
+    const loadingSkeleton = screen.getAllByTestId('loading-skeleton');
+    expect(loadingSkeleton).toBeDefined();
+  });
+
   it('renders the entry component', () => {
+    useActivitiesMock.mockReturnValue({
+      isPending: false,
+      error: null,
+      data: [
+        {
+          id: '1',
+          userId: '1',
+          type: 'Simulator',
+          details: 'test',
+          date: '2023-10-01',
+          createdAt: '2023-10-01',
+          updatedAt: '2023-10-01',
+        },
+        {
+          id: '2',
+          userId: '1',
+          type: 'Range',
+          details: 'test',
+          date: '2023-10-02',
+          createdAt: '2023-10-02',
+          updatedAt: '2023-10-02',
+        },
+      ],
+    });
+
     render(<Entry user={mockUser} />);
 
     const entryUsername = screen.getByText(mockUser.name);
