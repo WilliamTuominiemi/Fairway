@@ -45,6 +45,7 @@ export default function GolfclubInBag({
   return (
     <div
       className={`group flex flex-col w-42 h-45 p-4 ${editing ? 'bg-emerald-200' : 'bg-emerald-50'} border border-slate-500 rounded-lg text-black hover:bg-emerald-100 transition-colors duration-200`}
+      data-testid="golfclub-in-bag"
     >
       {editing ? (
         <form onSubmit={handleSubmit} className="flex-1 space-y-2 min-h-0">
@@ -54,6 +55,7 @@ export default function GolfclubInBag({
             value={formData.type}
             onChange={handleChange}
             required
+            data-testid="type-select"
           >
             <option value="">Select type</option>
             <option value="Driver">Driver</option>
@@ -71,6 +73,8 @@ export default function GolfclubInBag({
             maxLength={50}
             onChange={handleChange}
             className="p-2 w-full text-sm border bg-white border-slate-500 rounded-lg"
+            data-testid="name-input"
+            required
           />
         </form>
       ) : (
