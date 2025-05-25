@@ -31,8 +31,6 @@ export const addGolfClub = async (formData: GolfClubFormData) => {
 
 // API function for updating a golf club
 export const updateGolfClub = async ({ id, data }: UpdateGolfClubParams) => {
-  console.log(id);
-
   const response = await fetch(`/api/golfbag/club/${id}`, {
     method: 'PUT',
     body: JSON.stringify(data),
@@ -44,6 +42,19 @@ export const updateGolfClub = async ({ id, data }: UpdateGolfClubParams) => {
     throw new Error(`Failed to update golf club: ${response.status}`);
   }
 
+  return response.json();
+};
+
+// API function for deleting a golf club
+export const deleteGolfClub = async (id: string) => {
+  const response = await fetch(`/api/golfbag/club/${id}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+    console.error('Server response:', errorData);
+    throw new Error(`Failed to delete golf club: ${response.status}`);
+  }
   return response.json();
 };
 
@@ -92,6 +103,31 @@ export const useUpdateGolfClubMutation = (
     },
     onError: (error: Error) => {
       console.error('Error updating golf club:', error);
+      if (onErrorCallback) onErrorCallback(error);
+    },
+  });
+};
+
+/**
+ * Custom hook for handling golf club deletion
+ * @param onSuccessCallback - Optional callback to run after successful mutation
+ * @param onErrorCallback - Optional callback to run after failed mutation
+ * @returns Mutation object with mutate method and state
+ */
+export const useDeleteGolfClubMutation = (
+  onSuccessCallback?: () => void,
+  onErrorCallback?: (error: Error) => void,
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteGolfClub,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['golfclubs'] });
+      if (onSuccessCallback) onSuccessCallback();
+    },
+    onError: (error: Error) => {
+      console.error('Error deleting golf club:', error);
       if (onErrorCallback) onErrorCallback(error);
     },
   });

@@ -49,3 +49,47 @@ export async function PUT(
     );
   }
 }
+
+export async function DELETE(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> },
+) {
+  try {
+    const session = await auth();
+    if (!session || !session.user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { id: clubId } = await context.params;
+
+    // Check if the club exists and belongs to the user
+    const existingClub = await prisma.golfclub.findUnique({
+      where: {
+        id: clubId,
+        userId: session.user.id,
+      },
+    });
+
+    if (!existingClub) {
+      return NextResponse.json(
+        { error: 'Club not found or you do not have permission to delete it' },
+        { status: 404 },
+      );
+    }
+
+    // Delete the club
+    await prisma.golfclub.delete({
+      where: {
+        id: clubId,
+      },
+    });
+
+    return NextResponse.json({ message: 'Golf club deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting golf club:', error);
+    return NextResponse.json(
+      { error: 'Failed to delete golf club' },
+      { status: 500 },
+    );
+  }
+}

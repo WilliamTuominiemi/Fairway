@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 
+import Icon from '@/components/common/svgIcon';
+
 import { useForm } from '@/hooks/useForm';
-import { useUpdateGolfClubMutation } from '@/hooks/useGolfclubMutation';
+import {
+  useUpdateGolfClubMutation,
+  useDeleteGolfClubMutation,
+} from '@/hooks/useGolfclubMutation';
 
 interface GolfclubProps {
   id: string;
@@ -24,11 +29,17 @@ export default function GolfclubInBag({
 
   const updateMutation = useUpdateGolfClubMutation();
 
+  const deleteMutation = useDeleteGolfClubMutation();
+
   const toggleEdit = () => {
     setEditing(!editing);
     if (editing) {
       updateMutation.mutate({ id, data: formData });
     }
+  };
+
+  const handleDelete = () => {
+    deleteMutation.mutate(id);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -88,13 +99,25 @@ export default function GolfclubInBag({
         <div
           className={`mt-2 flex justify-end ${editing ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity duration-150`}
         >
-          <button
-            type="button"
-            className="w-25 self-end bg-green-700 hover:bg-green-900 active:scale-95 p-2 rounded-md text-emerald-50 transition-transform duration-75"
-            onClick={toggleEdit}
-          >
-            {editing ? 'Done' : 'Edit'}
-          </button>
+          <div className="flex flex-row gap-2">
+            {editing && (
+              <button
+                type="button"
+                className="w-10 h-full self-end bg-green-700 hover:bg-green-900 active:scale-95 p-2 rounded-md text-emerald-50 transition-transform duration-75 flex items-center justify-center"
+                onClick={handleDelete}
+                data-testid="delete-button"
+              >
+                <Icon iconName="thrashcan"></Icon>
+              </button>
+            )}
+            <button
+              type="button"
+              className="w-15 self-end bg-green-700 hover:bg-green-900 active:scale-95 p-2 rounded-md text-emerald-50 transition-transform duration-75"
+              onClick={toggleEdit}
+            >
+              {editing ? 'Done' : 'Edit'}
+            </button>
+          </div>
         </div>
       )}
     </div>

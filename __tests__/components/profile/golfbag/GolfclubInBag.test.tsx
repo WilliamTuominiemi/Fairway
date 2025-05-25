@@ -22,6 +22,9 @@ vi.mock('@/hooks/useGolfclubMutation', () => ({
   useUpdateGolfClubMutation: () => ({
     mutate: mockMutate,
   }),
+  useDeleteGolfClubMutation: () => ({
+    mutate: mockMutate,
+  }),
 }));
 
 const mockGolfclubDatas: GolfclubProps[] = [
@@ -120,5 +123,24 @@ describe('GolfclubInBag', () => {
 
     const editButton = screen.queryByText('Edit');
     expect(editButton).toBeNull();
+  });
+
+  it('deletes the golf club when delete button is clicked', () => {
+    renderWithClient(
+      <GolfclubInBag {...mockGolfclubDatas[0]} myprofile={true} />,
+    );
+    const golfclubElement = screen.getByTestId('golfclub-in-bag');
+    expect(golfclubElement).toBeDefined();
+
+    const editButton = screen.getByText('Edit');
+    expect(editButton).toBeDefined();
+
+    fireEvent.click(editButton);
+
+    const deleteButton = screen.getByTestId('delete-button');
+    expect(deleteButton).toBeDefined();
+
+    fireEvent.click(deleteButton);
+    expect(mockMutate).toHaveBeenCalledWith(mockGolfclubDatas[0].id);
   });
 });
