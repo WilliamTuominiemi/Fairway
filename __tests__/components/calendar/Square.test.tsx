@@ -40,6 +40,7 @@ describe('Square Component', () => {
     const squareElement = screen.getByTestId('square');
     expect(squareElement).toBeDefined();
     expect(squareElement.className).toContain('bg-red-50');
+    expect(squareElement.className).toContain('h-10 w-10');
   });
 
   it('renders with one activity', () => {
@@ -67,6 +68,6 @@ describe('Square Component', () => {
     render(<Square isFeed activities={mockActivities} />);
     const squareElement = screen.getByTitle('Simulator, Range, Minigolf');
     expect(squareElement).toBeDefined();
-    expect(squareElement.className).toContain('h-5 w-5 md:h-7 md:w-7');
+    expect(squareElement.className).toContain('h-7 w-7');
   });
 });

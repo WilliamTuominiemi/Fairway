@@ -7,7 +7,7 @@ import { User } from '@/types/index';
 
 const Entry = ({ user }: { user: User }) => {
   return (
-    <div className="p-5" data-testid="entry">
+    <div className="p-5 flex flex-col" data-testid="entry">
       <Link
         href={`/profile/${user.id}`}
         className="pl-5 flex flex-row items-center gap-3"

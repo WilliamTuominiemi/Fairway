@@ -59,12 +59,12 @@ const Calendar = ({
     >
       {!isFeed && myProfile && <AddActivity />}
       <div
-        className={`flex flex-col ${isFeed ? 'gap-1 m-2' : 'gap-2 md:gap-4 m-5'}`}
+        className={`flex flex-col ${isFeed ? 'gap-2 m-2' : 'gap-2 md:gap-4 m-5'}`}
       >
         {Array.from({ length: Math.ceil(days.length / 7) }, (_, weekIndex) => (
           <div
             key={weekIndex}
-            className={isFeed ? 'flex gap-1' : 'flex md:w-100 gap-2 md:gap-4'}
+            className={isFeed ? 'flex gap-2' : 'flex md:w-100 gap-2 md:gap-4'}
           >
             {days
               .slice(weekIndex * 7, weekIndex * 7 + 7)

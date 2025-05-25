@@ -55,7 +55,7 @@ export default function GolfclubInBag({
 
   return (
     <div
-      className={`group flex flex-col w-42 h-45 p-4 ${editing ? 'bg-emerald-200' : 'bg-emerald-50'} border border-slate-500 rounded-lg text-black hover:bg-emerald-100 transition-colors duration-200`}
+      className={`group flex flex-col w-full md:w-42 h-45 p-4 ${editing ? 'bg-emerald-200' : 'bg-emerald-50'} border border-slate-500 rounded-lg text-black hover:bg-emerald-100 transition-colors duration-200`}
       data-testid="golfclub-in-bag"
     >
       {editing ? (
