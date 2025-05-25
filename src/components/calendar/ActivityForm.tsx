@@ -1,5 +1,7 @@
 import { useForm } from '@/hooks/useForm';
 
+import ErrorMessage from '../error/ErrorMessage';
+
 interface ActivityFormProps {
   onSubmit: (formData: { date: string; type: string }) => void;
   isSubmitting: boolean;
@@ -66,9 +68,7 @@ const ActivityForm = ({
       </button>
 
       {isError && (
-        <div className="text-red-500 mt-2" data-testid="error-message">
-          Failed to add
-        </div>
+        <ErrorMessage message="Failed to add activity. Please try again."></ErrorMessage>
       )}
       {isSuccess && (
         <div className="text-green-900 text-sm" data-testid="success-message">
