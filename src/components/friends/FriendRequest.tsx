@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 import { useUserById } from '@/hooks/useUsers';
 
+import { FriendSkeleton } from '@/components/skeletons/FriendSkeleton';
+
 import {
   useAcceptFriendRequestMutation,
   useCancelFriendRequestMutation,
@@ -38,7 +40,7 @@ export default function FriendRequestItem({
     });
   };
 
-  if (isPending) return <p>Loading...</p>;
+  if (isPending) return <FriendSkeleton />;
   if (error) return <p>Error loading user: {error.message}</p>;
 
   return (

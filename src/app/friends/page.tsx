@@ -10,6 +10,8 @@ import SignInButton from '@/components/auth/SignInButton';
 import FriendRequestItem from '@/components/friends/FriendRequest';
 import Friend from '@/components/friends/Friend';
 
+import { FriendsSkeleton } from '@/components/skeletons/FriendsSkeleton';
+
 export default function Friends() {
   const { data: session, status } = useSession();
   const { incoming, outgoing } = useFriendRequests();
@@ -23,7 +25,7 @@ export default function Friends() {
       <Navbar />
       <main className="flex flex-col items-center sm:items-start">
         {isLoading ? (
-          <h1 className="text-4xl p-5">Loading friend requests...</h1>
+          <FriendsSkeleton />
         ) : session ? (
           <div>
             <div>

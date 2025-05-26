@@ -2,12 +2,14 @@ import Image from 'next/image';
 
 import { useUserById } from '@/hooks/useUsers';
 
-import ErrorMessage from '../error/ErrorMessage';
+import ErrorMessage from '@/components/error/ErrorMessage';
+
+import { FriendSkeleton } from '@/components/skeletons/FriendSkeleton';
 
 export default function FriendRequestItem({ userId }: { userId: string }) {
   const { data: user, isPending, error } = useUserById(userId);
 
-  if (isPending) return <p>Loading...</p>;
+  if (isPending) return <FriendSkeleton />;
   if (error) return <ErrorMessage message={error.message} />;
 
   return (

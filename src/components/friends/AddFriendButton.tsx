@@ -3,6 +3,8 @@ import { useFriendRequestButton } from '@/hooks/useFriendRequests';
 
 import ErrorMessage from '../error/ErrorMessage';
 
+import { AddFriendButtonSkeleton } from '@/components/skeletons/AddFriendButtonSkeleton';
+
 export default function AddFriendButton({ userId }: { userId: string }) {
   const {
     data: button,
@@ -13,7 +15,7 @@ export default function AddFriendButton({ userId }: { userId: string }) {
 
   const friendRequestMutation = useFriendRequestMutation();
 
-  if (isPending) return <p>Loading...</p>;
+  if (isPending) return <AddFriendButtonSkeleton />;
   if (error) return <ErrorMessage message={error.message} />;
 
   const handleAddFriend = () => {

@@ -5,7 +5,7 @@ import { useInfo } from '@/hooks/useInfo';
 import { UserInfoSkeleton } from '@/components/skeletons/UserInfoSkeleton';
 
 import ErrorMessage from '@/components/error/ErrorMessage';
-import AddFriendButton from '../friends/AddFriendButton';
+import AddFriendButton from '@/components/friends/AddFriendButton';
 
 export default function Info({ userId }: { userId?: string | null }) {
   const { isPending, error, data } = useInfo(userId || '');
