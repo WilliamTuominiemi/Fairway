@@ -45,3 +45,17 @@ export type UserInfo = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type FriendRequest = {
+  id: string;
+  senderId: string;
+  receiverId: string;
+  createdAt: string;
+};
+
+export type Friendship = {
+  id: string;
+  user1Id: string;
+  user2Id: string;
+  createdAt: string;
+};

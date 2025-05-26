@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -13,6 +14,7 @@ import { NavbarSkeleton } from '@/components/skeletons/NavbarSkeleton';
 export default function Navbar() {
   const { data: session, status } = useSession();
   const isLoading = status === 'loading';
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
     <header
@@ -34,17 +36,32 @@ export default function Navbar() {
           <NavbarSkeleton />
         ) : session ? (
           <>
-            <SignOutButton />
-            <Link href="/profile" className="flex flex-row items-center">
-              <p>{session.user?.name}</p>
-              <Image
-                src={session.user?.image || ''}
-                alt="User Image"
-                width={35}
-                height={35}
-                className="rounded-full ml-2"
-              ></Image>
-            </Link>
+            <div>
+              <button
+                className="flex flex-row items-center"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                <p>{session.user?.name}</p>
+                <Image
+                  src={session.user?.image || ''}
+                  alt="User Image"
+                  width={35}
+                  height={35}
+                  className="rounded-full ml-2"
+                ></Image>
+              </button>
+              <div
+                className={`${dropdownOpen ? 'block' : 'hidden'} absolute right-0 m-2 p-2 w-30 bg-white text-black rounded-lg shadow-xl flex flex-col items-center gap-2`}
+              >
+                <Link href="/profile">
+                  <p className="text-2xl hover:underline">Profile</p>
+                </Link>
+                <Link href="/friends">
+                  <p className="text-2xl hover:underline">Friends</p>
+                </Link>
+                <SignOutButton />
+              </div>
+            </div>
           </>
         ) : (
           <>

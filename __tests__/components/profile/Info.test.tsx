@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import Info from '@/components/profile/Info';
+import { renderWithClient } from '@/utils/test-utils';
 
 const useInfoMock = vi.fn();
 vi.mock('@/hooks/useInfo', () => ({
@@ -22,7 +23,7 @@ describe('Info', () => {
       error: null,
       data: null,
     });
-    render(<Info userId="123" />);
+    renderWithClient(<Info userId="123" />);
     const loadingSkeleton = screen.getAllByTestId('loading-skeleton');
     expect(loadingSkeleton).toBeDefined();
   });
@@ -33,7 +34,7 @@ describe('Info', () => {
       error: new Error('Failed to load user info'),
       data: null,
     });
-    render(<Info userId="123" />);
+    renderWithClient(<Info userId="123" />);
     const errorMessage = screen.getByTestId('error-message');
     expect(errorMessage).toBeDefined();
   });
@@ -49,7 +50,7 @@ describe('Info', () => {
       },
     });
 
-    render(<Info userId="123" />);
+    renderWithClient(<Info userId="123" />);
     const nameElement = screen.getByText('John Doe');
     const imageElement = screen.getByAltText('User Image');
     const daysSinceElement = screen.getByText(/Member for \d+ days/);
@@ -60,7 +61,7 @@ describe('Info', () => {
   });
 
   it('Days since is calculated correctly', () => {
-    const { getByText } = render(<Info userId="123" />);
+    const { getByText } = renderWithClient(<Info userId="123" />);
     const daysSinceElement = getByText(/Member for \d+ days/);
     const daysSinceValue = parseInt(
       daysSinceElement.textContent?.match(/\d+/)?.[0] || '0',

@@ -5,9 +5,11 @@ import { useInfo } from '@/hooks/useInfo';
 import { UserInfoSkeleton } from '@/components/skeletons/UserInfoSkeleton';
 
 import ErrorMessage from '@/components/error/ErrorMessage';
+import AddFriendButton from '../friends/AddFriendButton';
 
 export default function Info({ userId }: { userId?: string | null }) {
   const { isPending, error, data } = useInfo(userId || '');
+  const myProfile = !userId;
 
   const daysSince = (date: string) => {
     const today = new Date();
@@ -33,6 +35,7 @@ export default function Info({ userId }: { userId?: string | null }) {
           />
           <h1 className="text-2xl">{data.name}</h1>
           <p>Member for {daysSince(data.createdAt)} days</p>
+          {!myProfile && <AddFriendButton userId={data.id} />}
         </div>
       )}
     </div>
