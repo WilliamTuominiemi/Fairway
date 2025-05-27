@@ -7,7 +7,7 @@ import ErrorMessage from '@/components/error/ErrorMessage';
 import { FriendSkeleton } from '@/components/skeletons/FriendSkeleton';
 
 export default function FriendRequestItem({ userId }: { userId: string }) {
-  const { data: user, isPending, error } = useUserById(userId);
+  const { isPending, error, data: user } = useUserById(userId);
 
   if (isPending) return <FriendSkeleton />;
   if (error) return <ErrorMessage message={error.message} />;
