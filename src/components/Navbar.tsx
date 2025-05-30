@@ -51,13 +51,13 @@ export default function Navbar() {
                 ></Image>
               </button>
               <div
-                className={`${dropdownOpen ? 'block' : 'hidden'} absolute right-0 m-2 p-2 w-30 bg-white text-black rounded-lg shadow-xl flex flex-col items-center gap-2`}
+                className={`${dropdownOpen ? 'block' : 'hidden'} absolute right-0 mt-7 m-3 p-2 w-30 bg-white text-black rounded-lg shadow-xl border-1 border-green-700 flex flex-col items-center gap-3`}
               >
                 <Link href="/profile">
-                  <p className="text-2xl hover:underline">Profile</p>
+                  <p className="text-xl hover:underline">Profile</p>
                 </Link>
                 <Link href="/friends">
-                  <p className="text-2xl hover:underline">Friends</p>
+                  <p className="text-xl hover:underline">Friends</p>
                 </Link>
                 <SignOutButton />
               </div>

@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
+
 import { useState } from 'react';
 
 import { useUserById } from '@/hooks/useUsers';
@@ -45,16 +47,19 @@ export default function FriendRequestItem({
 
   return (
     <div className="flex items-center justify-between p-4">
-      <div className="flex items-center">
+      <Link
+        href={`/profile/${userId}`}
+        className="flex items-center hover:scale-105 transition-transform duration-75"
+      >
         <Image
           src={user.image}
           alt={user.name}
           width={40}
           height={40}
-          className="w-10 h-10 rounded-full mr-4"
+          className="w-10 h-10 rounded-full mr-2"
         />
         <span className="text-lg font-semibold">{user.name}</span>
-      </div>
+      </Link>
       {type === 'incoming' ? (
         <button
           className="w-25 self-end bg-green-700 hover:bg-green-900 active:scale-95 p-2 rounded-md text-emerald-50 transition-transform duration-75 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-700 disabled:active:scale-100"
@@ -67,7 +72,7 @@ export default function FriendRequestItem({
         </button>
       ) : (
         <button
-          className="w-25 self-end bg-red-700 hover:bg-red-900 active:scale-95 p-2 rounded-md text-emerald-50 transition-transform duration-75 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-red-700 disabled:active:scale-100"
+          className="w-25 self-end bg-red-700 hover:bg-red-900 active:scale-95 ml-2 p-2 rounded-md text-emerald-50 transition-transform duration-75 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-red-700 disabled:active:scale-100"
           onClick={handleCancel}
           disabled={
             buttonText === 'Cancelled' || cancelFriendRequestMutation.isPending

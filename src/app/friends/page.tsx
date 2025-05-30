@@ -62,12 +62,19 @@ export default function Friends() {
               )}
             </div>
             <div>
-              <h1 className="text-2xl p-2">Friends: {friends?.length}</h1>
-              {friends &&
-                friends.length > 0 &&
-                friends.map((friend) => (
-                  <Friend key={friend.id} userId={friend.id} />
-                ))}
+              {friends && friends.length > 0 ? (
+                <>
+                  <h1 className="text-2xl p-2">Friends: {friends.length}</h1>
+                  {friends.map((friend) => (
+                    <Friend key={friend.id} userId={friend.id} />
+                  ))}
+                </>
+              ) : (
+                <p className="text-lg p-2">
+                  You don&apos;t have any friends yet. Find some friends on the
+                  feed!
+                </p>
+              )}
             </div>
           </div>
         ) : (
