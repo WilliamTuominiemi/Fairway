@@ -6,7 +6,7 @@ export const GET = async (req: Request): Promise<NextResponse> => {
   try {
     const session = await auth();
     if (!session || !session.user?.id) {
-      return new NextResponse('Unauthorized', { status: 401 });
+      return new NextResponse(JSON.stringify('unauthorized'), { status: 200 });
     }
 
     const thisUserId = session.user.id;

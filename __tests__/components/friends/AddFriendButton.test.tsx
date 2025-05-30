@@ -54,6 +54,69 @@ describe('AddFriendButton', () => {
     expect(addButton).toBeDefined();
   });
 
+  it('renders the Cancel Request button', () => {
+    useFriendRequestButtonMock.mockReturnValue({
+      data: 'cancel',
+      isPending: false,
+      error: null,
+      refetch: vi.fn(),
+    });
+    render(<AddFriendButton userId={userId} />);
+    const cancelButton = screen.getByText('Cancel Request');
+    expect(cancelButton).toBeDefined();
+  });
+
+  it('renders the Accept Request button', () => {
+    useFriendRequestButtonMock.mockReturnValue({
+      data: 'accept',
+      isPending: false,
+      error: null,
+      refetch: vi.fn(),
+    });
+    render(<AddFriendButton userId={userId} />);
+    const acceptButton = screen.getByText('Accept Request');
+    expect(acceptButton).toBeDefined();
+  });
+
+  it('does not render button for own profile', () => {
+    useFriendRequestButtonMock.mockReturnValue({
+      data: 'own profile',
+      isPending: false,
+      error: null,
+      refetch: vi.fn(),
+    });
+    render(<AddFriendButton userId={userId} />);
+    const addButton = screen.queryByTestId('add-friend-button');
+    expect(addButton).toBeNull();
+  });
+
+  it('does not render button if already friends', () => {
+    useFriendRequestButtonMock.mockReturnValue({
+      data: 'friends',
+      isPending: false,
+      error: null,
+      refetch: vi.fn(),
+    });
+    render(<AddFriendButton userId={userId} />);
+    const addButton = screen.queryByTestId('add-friend-button');
+    expect(addButton).toBeNull();
+
+    const friendsMessage = screen.getByText('You are friends');
+    expect(friendsMessage).toBeDefined();
+  });
+
+  it('does not render button if unauthorized', () => {
+    useFriendRequestButtonMock.mockReturnValue({
+      data: 'unauthorized',
+      isPending: false,
+      error: null,
+      refetch: vi.fn(),
+    });
+    render(<AddFriendButton userId={userId} />);
+    const addButton = screen.queryByTestId('add-friend-button');
+    expect(addButton).toBeNull();
+  });
+
   it('calls mutate on button click', () => {
     useFriendRequestButtonMock.mockReturnValue({
       data: 'add',

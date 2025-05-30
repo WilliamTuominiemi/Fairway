@@ -15,7 +15,9 @@ const fetchFriendRequests = async (
 
 const fetchButtonState = async (
   userId: string,
-): Promise<'add' | 'cancel' | 'accept' | 'own profile' | 'friends'> => {
+): Promise<
+  'add' | 'cancel' | 'accept' | 'own profile' | 'friends' | 'unauthorized'
+> => {
   const response = await fetch(`/api/friends/request/button?userId=${userId}`);
   if (!response.ok) {
     throw new Error(`Failed to fetch button state: ${response.status}`);
