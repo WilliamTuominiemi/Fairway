@@ -13,7 +13,7 @@ const Entry = ({ user }: { user: User }) => {
         className="pl-5 flex flex-row items-center gap-3"
       >
         <Image
-          src={user.image || ''}
+          src={user.image}
           alt="User Image"
           width={30}
           height={30}

@@ -40,9 +40,7 @@ export default function AddFriendButton({ userId }: { userId: string }) {
               ? 'Add Friend'
               : button === 'cancel'
                 ? 'Cancel Request'
-                : button === 'accept'
-                  ? 'Accept Request'
-                  : ''}
+                : 'Accept Request'}
           </button>
         )}
       {button === 'friends' && <span>You are friends</span>}

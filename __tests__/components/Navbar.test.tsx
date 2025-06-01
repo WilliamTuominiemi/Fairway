@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import Navbar from '@/components/Navbar';
 
@@ -66,7 +66,30 @@ describe('Navbar', () => {
     });
 
     render(<Navbar />);
+    const userButton = screen.getByTestId('navbar-username');
+    fireEvent.click(userButton);
+
     const signOutButton = screen.getByTestId('sign-out-button');
     expect(signOutButton).toBeDefined();
+  });
+
+  it('displays the navbar when usename clicked', () => {
+    useSessionMock.mockReturnValue({
+      data: {
+        user: {
+          id: '1',
+          name: 'Peter Griffin',
+          image: 'https://example.com/image.jpg',
+        },
+      },
+      status: 'authenticated',
+    });
+
+    render(<Navbar />);
+    const userButton = screen.getByTestId('navbar-username');
+    fireEvent.click(userButton);
+
+    const dropdownMenu = screen.getByTestId('dropdown-menu');
+    expect(dropdownMenu).toBeDefined();
   });
 });

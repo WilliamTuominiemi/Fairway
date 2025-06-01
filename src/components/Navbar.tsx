@@ -40,6 +40,7 @@ export default function Navbar() {
               <button
                 className="flex flex-row items-center"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
+                data-testid="navbar-username"
               >
                 <p>{session.user?.name}</p>
                 <Image
@@ -50,17 +51,20 @@ export default function Navbar() {
                   className="rounded-full ml-2"
                 ></Image>
               </button>
-              <div
-                className={`${dropdownOpen ? 'block' : 'hidden'} absolute right-0 mt-7 m-3 p-2 w-30 bg-white text-black rounded-lg shadow-xl border-1 border-green-700 flex flex-col items-center gap-3`}
-              >
-                <Link href="/profile">
-                  <p className="text-xl hover:underline">Profile</p>
-                </Link>
-                <Link href="/friends">
-                  <p className="text-xl hover:underline">Friends</p>
-                </Link>
-                <SignOutButton />
-              </div>
+              {dropdownOpen && (
+                <div
+                  className="absolute right-0 mt-7 m-3 p-2 w-30 bg-white text-black rounded-lg shadow-xl border-1 border-green-700 flex flex-col items-center gap-3"
+                  data-testid="dropdown-menu"
+                >
+                  <Link href="/profile">
+                    <p className="text-xl hover:underline">Profile</p>
+                  </Link>
+                  <Link href="/friends">
+                    <p className="text-xl hover:underline">Friends</p>
+                  </Link>
+                  <SignOutButton />
+                </div>
+              )}
             </div>
           </>
         ) : (

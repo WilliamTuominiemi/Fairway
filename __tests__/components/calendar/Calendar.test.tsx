@@ -56,6 +56,18 @@ describe('Calendar Component', () => {
     expect(loadingSkeleton).toBeDefined();
   });
 
+  it('renders error message on error', () => {
+    useActivitiesMock.mockReturnValue({
+      isPending: false,
+      error: new Error('Failed to load calendar'),
+      data: null,
+    });
+
+    render(<Calendar />);
+    const errorMessage = screen.getByTestId('error-message');
+    expect(errorMessage).toBeDefined();
+  });
+
   it('renders the Calendar component with AddActivity and Squares', () => {
     render(<Calendar />);
 

@@ -4,6 +4,7 @@ import Square from '@/components/calendar/Square';
 import AddActivity from '@/components/calendar/AddActivity';
 
 import { CalendarSkeleton } from '@/components/skeletons/CalendarSkeleton';
+import ErrorMessage from '@/components/error/ErrorMessage';
 
 import { Activity } from '@/types/index';
 
@@ -45,10 +46,7 @@ const Calendar = ({
 
   if (isPending)
     return <CalendarSkeleton isFeed={isFeed} myProfile={myProfile} />;
-  if (error)
-    return (
-      <div className="flex gap-4 m-5 text-red-500">Error: {error.message}</div>
-    );
+  if (error) return <ErrorMessage message={error.message}></ErrorMessage>;
 
   return (
     <div

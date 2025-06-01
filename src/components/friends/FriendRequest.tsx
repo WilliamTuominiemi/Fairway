@@ -62,7 +62,7 @@ export default function FriendRequestItem({
       </Link>
       {type === 'incoming' ? (
         <button
-          className="w-25 self-end bg-green-700 hover:bg-green-900 active:scale-95 p-2 rounded-md text-emerald-50 transition-transform duration-75 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-700 disabled:active:scale-100"
+          className="w-25 self-end bg-green-700 hover:bg-green-900 active:scale-95 ml-2 p-2 rounded-md text-emerald-50 transition-transform duration-75 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-700 disabled:active:scale-100"
           onClick={handleAccept}
           disabled={
             buttonText === 'Accepted' || acceptFriendRequestMutation.isPending
