@@ -7,17 +7,15 @@ import AddEvent from '@/components/events/AddEvent';
 import Occurrence from '@/components/events/Occurrence';
 import ErrorMessage from '@/components/error/ErrorMessage';
 
+import { EventsSkeleton } from '@/components/skeletons/EventsSkeleton';
+
 export default function Occurrences() {
   const { data: session, status } = useSession();
   const isLoading = status === 'loading';
 
   const { isPending, error, data: events } = useEvents();
   if (isPending || isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <p>Loading events...</p>
-      </div>
-    );
+    return <EventsSkeleton />;
   }
   if (error) return <ErrorMessage message={error.message} />;
 

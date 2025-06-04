@@ -112,8 +112,8 @@ describe('Occurrences', () => {
 
     renderWithClient(<Occurrences />);
 
-    const loadingText = screen.getByText('Loading events...');
-    expect(loadingText).toBeDefined();
+    const loadingSkeleton = screen.getAllByTestId('loading-skeleton');
+    expect(loadingSkeleton).toBeDefined();
   });
 
   it('renders error message when there is an error', () => {
