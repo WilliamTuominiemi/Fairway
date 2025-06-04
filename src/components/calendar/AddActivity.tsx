@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
 
 import { useActivityMutation } from '@/hooks/useActivityMutation';
 
 import ActivityForm from '@/components/calendar/ActivityForm';
 
 const AddActivity = () => {
-  const { data: session } = useSession();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSuccess = () => {
@@ -20,11 +18,6 @@ const AddActivity = () => {
   const activityMutation = useActivityMutation(handleSuccess, handleError);
 
   const handleSubmit = (formData: { date: string; type: string }) => {
-    if (!session) {
-      console.error('Please sign in to add activities');
-      return;
-    }
-
     setIsSubmitting(true);
     activityMutation.mutate(formData);
   };

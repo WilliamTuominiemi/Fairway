@@ -59,3 +59,15 @@ export type Friendship = {
   user2Id: string;
   createdAt: string;
 };
+
+export type Event = {
+  id: string;
+  userId: string;
+  date: Date;
+  time: string;
+  type: string;
+  maxParticipants: number;
+  address: string;
+  createdAt: Date;
+  updatedAt: Date;
+};

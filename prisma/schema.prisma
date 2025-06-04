@@ -17,6 +17,7 @@ model User {
   sessions      Session[]
   Authenticator Authenticator[]
   activities    Activity[]
+  events        Event[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   stats         Stats?
@@ -135,4 +136,17 @@ model Friendship {
   user2      User     @relation("friendsOf", fields: [user2Id], references: [id], onDelete: Cascade)
   
   @@unique([user1Id, user2Id])
+}
+
+model Event {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date            DateTime
+  time            String
+  type            String
+  maxParticipants Int
+  address         String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
