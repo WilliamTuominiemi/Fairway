@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { Stats } from '@/types/index';
 
-export const fetchStats = async (userId?: string): Promise<Stats> => {
+const fetchStats = async (userId?: string): Promise<Stats> => {
   const response = await fetch(`/api/stats?userId=${userId ?? ''}`);
 
   if (!response.ok) {

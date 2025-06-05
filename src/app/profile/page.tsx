@@ -35,7 +35,9 @@ export default function Profile() {
               <Statistics />
               <Info />
             </div>
-            <Calendar />
+            <div className="m-10">
+              <Calendar />
+            </div>
             <Golfbag />
           </div>
         ) : (

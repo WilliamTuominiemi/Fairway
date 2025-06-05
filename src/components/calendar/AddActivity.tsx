@@ -24,7 +24,7 @@ const AddActivity = () => {
 
   return (
     <div
-      className="flex flex-col md:w-75 gap-4 p-5 m-5 bg-emerald-50 border-1 border-slate-500 rounded-lg text-black"
+      className="flex flex-col w-full md:w-75 gap-4 p-5 mr-7 bg-emerald-50 border-1 border-slate-500 rounded-lg text-black"
       data-testid="add-activity"
     >
       <h1>Add activity</h1>

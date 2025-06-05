@@ -14,11 +14,11 @@ export const CalendarSkeleton = ({
   return (
     <div
       className={`flex flex-col md:flex-row ${
-        isFeed ? 'gap-2 m-2' : 'gap-4 m-5'
+        isFeed ? 'gap-2 m-2' : 'gap-4'
       } align-middle text-center`}
     >
       {!isFeed && myProfile && (
-        <div className="flex flex-col md:w-75 gap-4 p-5 m-5 bg-emerald-50 border-1 border-slate-500 rounded-lg items-center">
+        <div className="flex flex-col md:w-75 gap-4 p-5 bg-emerald-50 border-1 border-slate-500 rounded-lg items-center">
           <BaseSkeleton className="w-20 h-6" />
           <BaseSkeleton className="w-full h-10" />
           <BaseSkeleton className="w-full h-10" />
@@ -26,7 +26,7 @@ export const CalendarSkeleton = ({
         </div>
       )}
       <div
-        className={`flex flex-col ${isFeed ? 'gap-1 m-2' : 'gap-2 md:gap-4 m-5'}`}
+        className={`flex flex-col ${isFeed ? 'gap-1 m-2' : 'gap-2 md:gap-4'}`}
       >
         {Array.from({ length: weeksToShow }, (_, weekIndex) => (
           <div
