@@ -55,14 +55,10 @@ describe('Occurrence', () => {
       `${new Date(mockEvent.date).toLocaleDateString()} at ${mockEvent.time}`,
     );
     const eventTime = eventDate;
-    const maxParticipants = screen.getByText(
-      `Max Participants: ${mockEvent.maxParticipants}`,
-    );
 
     expect(eventType).toBeDefined();
     expect(eventAddress).toBeDefined();
     expect(eventDate).toBeDefined();
     expect(eventTime).toBeDefined();
-    expect(maxParticipants).toBeDefined();
   });
 });

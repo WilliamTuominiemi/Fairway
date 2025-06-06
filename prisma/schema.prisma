@@ -148,6 +148,7 @@ model Event {
   type            String
   maxParticipants Int
   address         String
+  friendsOnly     Boolean  @default(false)
   joins           Join[]
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

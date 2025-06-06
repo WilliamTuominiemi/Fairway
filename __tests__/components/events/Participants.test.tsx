@@ -64,6 +64,17 @@ describe('Participants', () => {
     expect(loadingElement).toBeDefined();
   });
 
+  it('renders error message', () => {
+    useParticipantsMock.mockReturnValue({
+      isPending: false,
+      error: new Error('Failed to load participants'),
+      data: null,
+    });
+    renderWithClient(<Participants maxParticipants={10} eventId="1" />);
+    const errorMessage = screen.getByTestId('error-message');
+    expect(errorMessage).toBeDefined();
+  });
+
   it('renders participants component', () => {
     useParticipantsMock.mockReturnValue({
       isPending: false,

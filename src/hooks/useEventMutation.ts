@@ -6,11 +6,10 @@ interface EventFormData {
   address: string;
   time: string;
   maxParticipants: number;
+  friendsOnly?: boolean;
 }
 
 export const addEvent = async (formData: EventFormData) => {
-  console.log('Submitting event data:', formData);
-
   const response = await fetch('/api/events', {
     method: 'POST',
     headers: {

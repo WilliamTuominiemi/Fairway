@@ -32,7 +32,7 @@ export default function AddEvent() {
 
   return (
     <div
-      className="flex flex-col w-80 h-80 bg-emerald-50 border-1 border-slate-500 rounded-lg text-black items-center justify-center"
+      className="flex flex-col md:w-90 h-90 bg-emerald-50 border-1 border-slate-500 rounded-lg text-black items-center justify-center"
       data-testid="add-event"
     >
       <EventForm

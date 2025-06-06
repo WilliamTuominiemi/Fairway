@@ -22,7 +22,7 @@ describe('FeedSelector Component', () => {
     const setActiveTabMock = vi.fn();
     render(<FeedSelector activeTab="events" setActiveTab={setActiveTabMock} />);
 
-    const usersButton = screen.getByText('Users');
+    const usersButton = screen.getByText('Feed');
     usersButton.click();
 
     expect(setActiveTabMock).toHaveBeenCalledWith('users');

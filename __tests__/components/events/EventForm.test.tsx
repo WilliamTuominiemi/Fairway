@@ -49,6 +49,46 @@ describe('EventForm', () => {
       date: '2023-10-01',
       time: '10:00',
       maxParticipants: '4',
+      friendsOnly: false,
+    });
+  });
+
+  it('submits the form with correct data when friendsOnly is true', () => {
+    const typeSelect = screen.getByTestId('type-select') as HTMLSelectElement;
+    const addressInput = screen.getByTestId(
+      'address-input',
+    ) as HTMLInputElement;
+    const dateInput = screen.getByTestId('date-input') as HTMLInputElement;
+    const timeInput = screen.getByTestId('time-input') as HTMLInputElement;
+    const maxParticipantsInput = screen.getByTestId(
+      'max-participants-input',
+    ) as HTMLInputElement;
+    const friendsOnlyCheckbox = screen.getByTestId(
+      'friends-only-checkbox',
+    ) as HTMLInputElement;
+
+    fireEvent.change(typeSelect, { target: { value: '18-hole round' } });
+    fireEvent.change(addressInput, { target: { value: '123 Golf St' } });
+    fireEvent.change(dateInput, { target: { value: '2023-10-01' } });
+    fireEvent.change(timeInput, { target: { value: '10:00' } });
+    fireEvent.change(maxParticipantsInput, { target: { value: '4' } });
+    fireEvent.click(friendsOnlyCheckbox);
+
+    expect(typeSelect.value).toBe('18-hole round');
+    expect(addressInput.value).toBe('123 Golf St');
+    expect(dateInput.value).toBe('2023-10-01');
+    expect(friendsOnlyCheckbox.checked).toBe(true);
+
+    const form = screen.getByTestId('event-form');
+    fireEvent.submit(form);
+
+    expect(mockOnSubmit).toHaveBeenCalledWith({
+      type: '18-hole round',
+      address: '123 Golf St',
+      date: '2023-10-01',
+      time: '10:00',
+      maxParticipants: '4',
+      friendsOnly: true,
     });
   });
 

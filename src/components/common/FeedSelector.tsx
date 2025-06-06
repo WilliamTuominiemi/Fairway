@@ -15,7 +15,7 @@ const FeedSelector = ({ activeTab, setActiveTab }: FeedSelectorProps) => {
               : 'text-green-700 hover:text-green-900 hover:bg-white/5'
           }`}
         >
-          Users
+          Feed
         </button>
         <button
           onClick={() => setActiveTab('events')}

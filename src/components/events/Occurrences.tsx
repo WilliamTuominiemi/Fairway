@@ -20,13 +20,16 @@ export default function Occurrences() {
   if (error) return <ErrorMessage message={error.message} />;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 m-5 gap-5">
+    <div className="m-5 ">
       {session && <AddEvent />}
-      {events && events.length > 0 ? (
-        events.map((event) => <Occurrence key={event.id} {...event} />)
-      ) : (
-        <p className="text-center col-span-2">No events found.</p>
-      )}
+
+      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
+        {events && events.length > 0 ? (
+          events.map((event) => <Occurrence key={event.id} {...event} />)
+        ) : (
+          <p className="text-center col-span-2">No events found.</p>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { User } from '@/types/index';
 
@@ -38,15 +39,17 @@ const Participants = ({ maxParticipants, eventId }: ParticipantsProps) => {
       {Participants &&
         Participants.length > 0 &&
         Participants.map((participant: User) => (
-          <Image
-            className="rounded-full"
-            key={participant.id}
-            src={participant.image}
-            alt={participant.name}
-            width={48}
-            height={48}
-            data-testid={`participant-${participant.id}`}
-          ></Image>
+          <Link key={participant.id} href={`/profile/${participant.id}`}>
+            <Image
+              className="rounded-full"
+              key={participant.id}
+              src={participant.image}
+              alt={participant.name}
+              width={48}
+              height={48}
+              data-testid={`participant-${participant.id}`}
+            ></Image>
+          </Link>
         ))}
       {spotsLeft &&
         spotsLeft > 0 &&

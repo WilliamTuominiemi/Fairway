@@ -17,6 +17,7 @@ const mockEventData = {
   address: '123 Golf Course Rd',
   time: '10:00',
   maxParticipants: '10',
+  friendsOnly: false,
 };
 
 describe('AddEvent', () => {

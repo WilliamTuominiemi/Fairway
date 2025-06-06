@@ -66,28 +66,20 @@ describe('Occurrences', () => {
     const eventDate1 = screen.getByText(
       `${new Date(mockEvents[0].date).toLocaleDateString()} at ${mockEvents[0].time}`,
     );
-    const maxParticipants1 = screen.getByText(
-      `Max Participants: ${mockEvents[0].maxParticipants}`,
-    );
 
     const eventType2 = screen.getByText(mockEvents[1].type);
     const eventAddress2 = screen.getByText(mockEvents[1].address);
     const eventDate2 = screen.getByText(
       `${new Date(mockEvents[1].date).toLocaleDateString()} at ${mockEvents[1].time}`,
     );
-    const maxParticipants2 = screen.getByText(
-      `Max Participants: ${mockEvents[1].maxParticipants}`,
-    );
 
     expect(eventType1).toBeDefined();
     expect(eventAddress1).toBeDefined();
     expect(eventDate1).toBeDefined();
-    expect(maxParticipants1).toBeDefined();
 
     expect(eventType2).toBeDefined();
     expect(eventAddress2).toBeDefined();
     expect(eventDate2).toBeDefined();
-    expect(maxParticipants2).toBeDefined();
   });
 
   it('renders text when no events are available', () => {

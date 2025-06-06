@@ -11,6 +11,7 @@ interface EventFormProps {
     address: string;
     time: string;
     maxParticipants: number;
+    friendsOnly?: boolean;
   }) => void;
   isSubmitting: boolean;
   isError: boolean;
@@ -29,6 +30,7 @@ export default function EventForm({
     address: '',
     time: '',
     maxParticipants: 1,
+    friendsOnly: false,
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,10 +41,11 @@ export default function EventForm({
 
   return (
     <form
-      className="flex flex-col gap-2"
+      className="flex flex-col gap-2 "
       data-testid="event-form"
       onSubmit={handleSubmit}
     >
+      <h1 className="text-lg">Set time and place for your event</h1>
       <select
         id="type"
         value={formData.type}
@@ -51,7 +54,7 @@ export default function EventForm({
         required
         data-testid="type-select"
       >
-        <option value="">Select type</option>
+        <option value="">Select type of event</option>
         <option value="18-hole round">18-hole round</option>
         <option value="9-hole round">9-hole round</option>
         <option value="driving range">Driving range</option>
@@ -71,50 +74,94 @@ export default function EventForm({
         placeholder="Enter address"
         data-testid="address-input"
       />
-      <input
-        type="date"
-        id="date"
-        required
-        value={formData.date}
-        onChange={handleChange}
-        className="border bg-white border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-        placeholder="Enter date"
-        min={new Date().toISOString().split('T')[0]}
-        data-testid="date-input"
-      />
-      <input
-        type="time"
-        id="time"
-        value={formData.time}
-        onChange={handleChange}
-        className="border bg-white border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-        placeholder="Enter time"
-        data-testid="time-input"
-        required
-      />
-      <input
-        type="number"
-        id="maxParticipants"
-        value={formData.maxParticipants}
-        min="1"
-        max="10"
-        onChange={(e) => {
-          const value = parseInt(e.target.value);
-          if (!isNaN(value)) {
-            const validValue = Math.min(Math.max(value, 1), 10);
-            e.target.value = validValue.toString();
-          }
-          handleChange(e);
-        }}
-        className="border bg-white border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-        placeholder="Max participants"
-        data-testid="max-participants-input"
-        required
-      />
+      <div className="flex flex-row gap-2">
+        <div>
+          <label
+            htmlFor="date"
+            className="text-lg text-gray-700 flex items-center"
+          >
+            Date
+          </label>
+          <input
+            type="date"
+            id="date"
+            required
+            value={formData.date}
+            onChange={handleChange}
+            className="border bg-white border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Enter date"
+            min={new Date().toISOString().split('T')[0]}
+            data-testid="date-input"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="time"
+            className="text-lg text-gray-700 flex items-center"
+          >
+            Time
+          </label>
+          <input
+            type="time"
+            id="time"
+            value={formData.time}
+            onChange={handleChange}
+            className="border bg-white border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Enter time"
+            data-testid="time-input"
+            required
+          />
+        </div>
+      </div>
+      <div className="flex flex-row gap-5">
+        <div>
+          <label
+            htmlFor="maxParticipants"
+            className="text-lg text-gray-700 flex items-center"
+          >
+            Max participants
+          </label>
+          <input
+            type="number"
+            id="maxParticipants"
+            value={formData.maxParticipants}
+            min="1"
+            max="10"
+            onChange={(e) => {
+              const value = parseInt(e.target.value);
+              if (!isNaN(value)) {
+                const validValue = Math.min(Math.max(value, 1), 10);
+                e.target.value = validValue.toString();
+              }
+              handleChange(e);
+            }}
+            className="border bg-white border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Max participants"
+            data-testid="max-participants-input"
+            required
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="friendsOnly"
+            className="text-lg text-gray-700 flex items-center"
+          >
+            Friends only
+          </label>
+          <input
+            type="checkbox"
+            id="friendsOnly"
+            value={formData.friendsOnly ? 'true' : 'false'}
+            onChange={handleChange}
+            className="w-10 h-10 p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+            data-testid="friends-only-checkbox"
+          />
+        </div>
+      </div>
       <button
         type="submit"
         disabled={isSubmitting}
-        className="bg-green-700 hover:bg-green-900 active:scale-95 p-2 rounded-md text-emerald-50 transition-transform duration-75"
+        className="w-35 bg-green-700 hover:bg-green-900 active:scale-95 p-2 rounded-md text-emerald-50 transition-transform duration-75"
         data-testid="add-event-button"
       >
         {isSubmitting ? 'Creating...' : 'Create Event'}
@@ -124,7 +171,7 @@ export default function EventForm({
         <ErrorMessage message="Failed to create event. Please try again."></ErrorMessage>
       )}
       {isSuccess && (
-        <div className="text-green-900 text-sm" data-testid="success-message">
+        <div className="text-green-900 text-lg" data-testid="success-message">
           Created succesfully
         </div>
       )}
