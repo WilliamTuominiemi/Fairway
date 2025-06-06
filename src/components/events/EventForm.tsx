@@ -96,8 +96,16 @@ export default function EventForm({
         type="number"
         id="maxParticipants"
         value={formData.maxParticipants}
-        min={1}
-        onChange={handleChange}
+        min="1"
+        max="10"
+        onChange={(e) => {
+          const value = parseInt(e.target.value);
+          if (!isNaN(value)) {
+            const validValue = Math.min(Math.max(value, 1), 10);
+            e.target.value = validValue.toString();
+          }
+          handleChange(e);
+        }}
         className="border bg-white border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
         placeholder="Max participants"
         data-testid="max-participants-input"

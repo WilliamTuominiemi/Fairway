@@ -22,6 +22,7 @@ model User {
   updatedAt     DateTime        @updatedAt
   stats         Stats?
   golfclubs     Golfclub[]
+  joins         Join[]
   sentFriendRequests     FriendRequest[] @relation("SentFriendRequests")
   receivedFriendRequests FriendRequest[] @relation("ReceivedFriendRequests")
   friends       Friendship[]  @relation("friends")
@@ -147,6 +148,17 @@ model Event {
   type            String
   maxParticipants Int
   address         String
+  joins           Join[]
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+}
+
+model Join {
+  id              String    @id @default(cuid())
+  eventId         String
+  userId          String
+  event           Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }

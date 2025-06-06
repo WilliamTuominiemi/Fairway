@@ -46,6 +46,13 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
       },
     });
 
+    await prisma.join.create({
+      data: {
+        userId: userId,
+        eventId: newEvent.id,
+      },
+    });
+
     return new NextResponse(JSON.stringify(newEvent), { status: 201 });
   } catch (error) {
     return new NextResponse(

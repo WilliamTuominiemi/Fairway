@@ -1,5 +1,6 @@
-import { render, screen } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { screen } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { renderWithClient } from '@/utils/test-utils';
 
 import Occurrence from '@/components/events/Occurrence';
 import { Event } from '@/types/index';
@@ -7,6 +8,11 @@ import { Event } from '@/types/index';
 const useEventsMock = vi.fn();
 vi.mock('@/hooks/useEvents', () => ({
   useEvents: () => useEventsMock(),
+}));
+
+const useSessionMock = vi.fn();
+vi.mock('next-auth/react', () => ({
+  useSession: () => useSessionMock(),
 }));
 
 const mockEvent: Event = {
@@ -21,6 +27,19 @@ const mockEvent: Event = {
   updatedAt: new Date(),
 };
 describe('Occurrence', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    useSessionMock.mockReturnValue({
+      data: {
+        user: {
+          id: '1',
+          name: 'Peter Griffin',
+        },
+      },
+      status: 'authenticated',
+    });
+  });
+
   it('renders the occurrence component', () => {
     useEventsMock.mockReturnValue({
       isPending: false,
@@ -28,7 +47,7 @@ describe('Occurrence', () => {
       data: [mockEvent],
     });
 
-    render(<Occurrence {...mockEvent} />);
+    renderWithClient(<Occurrence {...mockEvent} />);
 
     const eventType = screen.getByText(mockEvent.type);
     const eventAddress = screen.getByText(mockEvent.address);
