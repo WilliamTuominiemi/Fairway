@@ -13,15 +13,21 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
       );
     }
 
-    const participants = await prisma.user.findMany({
+    // Fetch join records with associated user data, sorted by join time
+    const joinRecords = await prisma.join.findMany({
       where: {
-        joins: {
-          some: {
-            eventId: eventIdParam,
-          },
-        },
+        eventId: eventIdParam,
+      },
+      include: {
+        user: true, // Include user data in the results
+      },
+      orderBy: {
+        createdAt: 'asc', // Sort by earliest join first
       },
     });
+
+    // Extract users from join records
+    const participants = joinRecords.map((record) => record.user);
 
     return new NextResponse(JSON.stringify(participants), { status: 200 });
   } catch (error) {
