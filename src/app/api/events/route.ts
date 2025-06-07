@@ -61,22 +61,32 @@ export const GET = async (): Promise<NextResponse> => {
           ? friendship.user2Id
           : friendship.user1Id,
       );
+      // Get the current date for filtering past events
+      const now = new Date();
 
       // Modify the query to exclude friendsOnly events unless the user is friends with the host
-      // or the user is the host
+      // or the user is the host, and only show future events
       eventsQuery.where = {
-        OR: [
-          { friendsOnly: false },
-          { userId: currentUserId },
+        AND: [
+          { date: { gte: now } }, // Only include events in the future
           {
-            AND: [{ friendsOnly: true }, { userId: { in: friendHostIds } }],
+            OR: [
+              { friendsOnly: false },
+              { userId: currentUserId },
+              {
+                AND: [{ friendsOnly: true }, { userId: { in: friendHostIds } }],
+              },
+            ],
           },
         ],
       };
     } else {
-      // For non-authenticated users, only show public events
+      // For non-authenticated users, only show public events that are in the future
       eventsQuery.where = {
-        friendsOnly: false,
+        AND: [
+          { friendsOnly: false },
+          { date: { gte: new Date() } }, // Only include events in the future
+        ],
       };
     }
 
