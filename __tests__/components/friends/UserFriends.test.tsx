@@ -46,7 +46,7 @@ describe('UserFriends', () => {
       data: [],
     });
     renderWithClient(<UserFriends userId="1" />);
-    const noFriendsMessage = screen.getByText('No friends found.');
+    const noFriendsMessage = screen.getByText('No friends yet');
     expect(noFriendsMessage).toBeDefined();
   });
 

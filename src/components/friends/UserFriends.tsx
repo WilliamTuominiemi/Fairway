@@ -19,7 +19,7 @@ const UserFriends = ({ userId }: { userId: string }) => {
         {friends && friends.length > 0 ? (
           friends.map((friend) => <Friend key={friend.id} userId={friend.id} />)
         ) : (
-          <p className="text-center">No friends found.</p>
+          <p className="text-center m-5">No friends yet</p>
         )}
       </div>
     </div>

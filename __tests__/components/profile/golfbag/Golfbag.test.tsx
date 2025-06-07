@@ -65,4 +65,16 @@ describe('Golfbag', () => {
     const golfbagElement = screen.getByTestId('golfbag');
     expect(golfbagElement).toBeDefined();
   });
+
+  it('renders empty bag message when no clubs are present', () => {
+    useGolfclubsMock.mockReturnValue({
+      isPending: false,
+      error: null,
+      data: [],
+    });
+
+    renderWithClient(<Golfbag />);
+    const emptyBagMessage = screen.getByText('Empty bag');
+    expect(emptyBagMessage).toBeDefined();
+  });
 });

@@ -24,15 +24,21 @@ export default function Golfbag({ userId }: { userId?: string | null }) {
         data-testid="golfbag"
       >
         {myProfile && <AddGolfclub />}
-        {data.map((club: Golfclub) => (
-          <GolfclubInBag
-            key={club.id}
-            id={club.id}
-            type={club.type}
-            name={club.name}
-            myprofile={myProfile}
-          />
-        ))}
+        {data.length === 0 ? (
+          <div className="my-4">
+            <p className="text-lg text-gray-500">Empty bag</p>
+          </div>
+        ) : (
+          data.map((club: Golfclub) => (
+            <GolfclubInBag
+              key={club.id}
+              id={club.id}
+              type={club.type}
+              name={club.name}
+              myprofile={myProfile}
+            />
+          ))
+        )}
       </div>
     </div>
   );

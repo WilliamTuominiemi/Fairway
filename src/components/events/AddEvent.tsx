@@ -6,7 +6,7 @@ import { useEventMutation } from '@/hooks/useEventMutation';
 
 import EventForm from '@/components/events/EventForm';
 
-import Icon from '@/components/common/svgIcon';
+import NewEventButton from '@/components/events/NewEventButton';
 
 export default function AddEvent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,14 +41,7 @@ export default function AddEvent() {
   return (
     <>
       {!newEventMenuOpen ? (
-        <button
-          className="w-35 flex flex-row justify-between bg-green-700 hover:bg-green-900 active:scale-95 p-4 rounded-md text-emerald-50 transition-transform duration-75"
-          onClick={() => handleNewEventButtonClick()}
-          data-testid="add-event-button"
-        >
-          New Event
-          <Icon iconName="golf"></Icon>
-        </button>
+        <NewEventButton handleNewEventButtonClick={handleNewEventButtonClick} />
       ) : (
         <div
           className="flex flex-col md:w-90 h-90 bg-red-50 border-1 border-slate-500 rounded-lg text-black items-center justify-center"
