@@ -13,6 +13,7 @@ interface EventFormProps {
     maxParticipants: number;
     friendsOnly?: boolean;
   }) => void;
+  onCancel?: () => void;
   isSubmitting: boolean;
   isError: boolean;
   isSuccess: boolean;
@@ -20,6 +21,7 @@ interface EventFormProps {
 
 export default function EventForm({
   onSubmit,
+  onCancel,
   isSubmitting,
   isError,
   isSuccess,
@@ -71,7 +73,7 @@ export default function EventForm({
         value={formData.address}
         onChange={handleChange}
         className="border bg-white border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-        placeholder="Enter address"
+        placeholder="Location"
         data-testid="address-input"
       />
       <div className="flex flex-row gap-2">
@@ -158,14 +160,24 @@ export default function EventForm({
           />
         </div>
       </div>
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-35 bg-green-700 hover:bg-green-900 active:scale-95 p-2 rounded-md text-emerald-50 transition-transform duration-75"
-        data-testid="add-event-button"
-      >
-        {isSubmitting ? 'Creating...' : 'Create Event'}
-      </button>
+      <div className="flex flex-row gap-4">
+        <button
+          type="button"
+          onClick={onCancel}
+          className="w-35 bg-amber-700 hover:bg-amber-900 active:scale-95 p-2 rounded-md text-red-50 transition-transform duration-75"
+          data-testid="cancel-button"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-35 bg-green-700 hover:bg-green-900 active:scale-95 p-2 rounded-md text-emerald-50 transition-transform duration-75"
+          data-testid="add-event-button"
+        >
+          {isSubmitting ? 'Creating...' : 'Create Event'}
+        </button>
+      </div>
 
       {isError && (
         <ErrorMessage message="Failed to create event. Please try again."></ErrorMessage>

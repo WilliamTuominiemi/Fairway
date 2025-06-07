@@ -26,12 +26,12 @@ export const CalendarSkeleton = ({
         </div>
       )}
       <div
-        className={`flex flex-col ${isFeed ? 'gap-1 m-2' : 'gap-2 md:gap-4'}`}
+        className={`flex flex-col ${isFeed ? 'gap-2 m-2' : 'gap-2 md:gap-4'}`}
       >
         {Array.from({ length: weeksToShow }, (_, weekIndex) => (
           <div
             key={weekIndex}
-            className={isFeed ? 'flex gap-1' : 'flex md:w-100 gap-2 md:gap-4'}
+            className={isFeed ? 'flex gap-2' : 'flex md:w-100 gap-2 md:gap-4'}
           >
             {Array.from(
               { length: Math.min(7, days - weekIndex * 7) },

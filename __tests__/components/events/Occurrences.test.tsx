@@ -130,11 +130,11 @@ describe('Occurrences', () => {
     });
 
     renderWithClient(<Occurrences />);
-    const addEventElement = screen.getByTestId('add-event');
-    expect(addEventElement).toBeDefined();
+    const addEventButton = screen.queryByTestId('add-event-button');
+    expect(addEventButton).toBeDefined();
   });
 
-  it('does not render AddEvent component when session is not available', () => {
+  it('does not render AddEvent button when session is not available', () => {
     useSessionMock.mockReturnValue({
       data: null,
       status: 'unauthenticated',
@@ -147,7 +147,7 @@ describe('Occurrences', () => {
     });
 
     renderWithClient(<Occurrences />);
-    const addEventElement = screen.queryByTestId('add-event');
-    expect(addEventElement).toBeNull();
+    const addEventButton = screen.queryByTestId('add-event-button');
+    expect(addEventButton).toBeNull();
   });
 });

@@ -23,12 +23,20 @@ const mockEventData = {
 describe('AddEvent', () => {
   it('renders the AddEvent component', () => {
     renderWithClient(<AddEvent />);
+
+    const addEventButton = screen.getByTestId('add-event-button');
+    fireEvent.click(addEventButton);
+
     const addEventElement = screen.getByTestId('add-event');
     expect(addEventElement).toBeDefined();
   });
 
   it('calls mutate on form submission', () => {
     renderWithClient(<AddEvent />);
+
+    const addEventButton = screen.getByTestId('add-event-button');
+    fireEvent.click(addEventButton);
+
     const dateInput = screen.getByTestId('date-input');
     const typeInput = screen.getByTestId('type-select');
     const addressInput = screen.getByTestId('address-input');

@@ -51,8 +51,7 @@ const Participants = ({ maxParticipants, eventId }: ParticipantsProps) => {
             ></Image>
           </Link>
         ))}
-      {spotsLeft &&
-        spotsLeft > 0 &&
+      {spotsLeft > 0 &&
         Array.from({ length: spotsLeft }, (_, index) => (
           <div
             className="w-12 h-12 border-4 border-r-6 border-dashed rounded-full border-gray-500 flex items-center justify-center"
