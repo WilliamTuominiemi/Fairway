@@ -1,15 +1,18 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  serverExternalPackages: [
+    'import-in-the-middle',
+    'require-in-the-middle',
+  ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
-nextConfig.images = {
-  remotePatterns: [
-    {
-      protocol: 'https',
-      hostname: 'lh3.googleusercontent.com',
-    },
-  ],
-};
