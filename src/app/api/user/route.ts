@@ -33,3 +33,33 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const session = await auth();
+
+    if (!session || !session.user?.id) {
+      return new NextResponse('Unauthorized', { status: 401 });
+    }
+
+    const userId = session.user.id;
+
+    // Delete the user
+    await prisma.user.delete({
+      where: { id: userId },
+    });
+
+    return NextResponse.json(
+      { message: 'User deleted successfully' },
+      { status: 200 },
+    );
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error: 'Failed to delete user',
+        message: error instanceof Error ? error.message : 'Unknown error',
+      },
+      { status: 500 },
+    );
+  }
+}

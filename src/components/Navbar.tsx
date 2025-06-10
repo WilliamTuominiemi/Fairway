@@ -62,6 +62,9 @@ export default function Navbar() {
                   <Link href="/friends">
                     <p className="text-xl hover:underline">Friends</p>
                   </Link>
+                  <Link href="/profile/settings">
+                    <p className="text-xl hover:underline">Settings</p>
+                  </Link>
                   <SignOutButton />
                 </div>
               )}
