@@ -35,41 +35,40 @@ export default function Navbar() {
         {isLoading ? (
           <NavbarSkeleton />
         ) : session ? (
-          <>
-            <div>
-              <button
-                className="flex flex-row items-center"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                data-testid="navbar-username"
+          <div className="relative">
+            <button
+              className="flex flex-row items-center"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              data-testid="navbar-username"
+            >
+              <p>{session.user?.name}</p>
+              <Image
+                src={session.user?.image || ''}
+                alt="User Image"
+                width={35}
+                height={35}
+                className="rounded-full ml-2"
+              ></Image>
+            </button>
+            {dropdownOpen && (
+              <div
+                className="absolute right-0 mt-7 m-3 p-2 w-30 bg-white text-black rounded-lg shadow-xl border-1 border-green-700 flex flex-col items-center gap-3 z-50"
+                data-testid="dropdown-menu"
+                style={{ zIndex: 9999 }}
               >
-                <p>{session.user?.name}</p>
-                <Image
-                  src={session.user?.image || ''}
-                  alt="User Image"
-                  width={35}
-                  height={35}
-                  className="rounded-full ml-2"
-                ></Image>
-              </button>
-              {dropdownOpen && (
-                <div
-                  className="absolute right-0 mt-7 m-3 p-2 w-30 bg-white text-black rounded-lg shadow-xl border-1 border-green-700 flex flex-col items-center gap-3"
-                  data-testid="dropdown-menu"
-                >
-                  <Link href="/profile">
-                    <p className="text-xl hover:underline">Profile</p>
-                  </Link>
-                  <Link href="/friends">
-                    <p className="text-xl hover:underline">Friends</p>
-                  </Link>
-                  <Link href="/profile/settings">
-                    <p className="text-xl hover:underline">Settings</p>
-                  </Link>
-                  <SignOutButton />
-                </div>
-              )}
-            </div>
-          </>
+                <Link href="/profile">
+                  <p className="text-xl hover:underline">Profile</p>
+                </Link>
+                <Link href="/friends">
+                  <p className="text-xl hover:underline">Friends</p>
+                </Link>
+                <Link href="/profile/settings">
+                  <p className="text-xl hover:underline">Settings</p>
+                </Link>
+                <SignOutButton />
+              </div>
+            )}
+          </div>
         ) : (
           <>
             <SignInButton />
